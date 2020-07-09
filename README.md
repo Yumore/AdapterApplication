@@ -1,0 +1,2 @@
+# AdapterApplication
+Adapter for RecyclerView

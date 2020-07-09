@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+    <ImageView
+            android:id="@+id/common_empty_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="240dp"
+            android:maxHeight="240dp"
+            android:src="@drawable/icon_empty_data"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+    <TextView
+            android:id="@+id/common_empty_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minHeight="@dimen/common_header_height_normal"
+            android:text="empty view describe information" />
+
+    <TextView
+            android:id="@+id/common_empty_option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_padding_normal"
+            android:background="@drawable/common_shape_circle_theme_solid"
+            android:gravity="center"
+            android:minHeight="@dimen/common_header_height_normal"
+            android:paddingLeft="@dimen/common_padding_normal"
+            android:paddingRight="@dimen/common_padding_normal"
+            android:text="empty view describe information"
+            android:textColor="@android:color/white"
+            android:visibility="gone"
+            tools:visibility="visible" />
+</LinearLayout>

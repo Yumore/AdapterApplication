@@ -1,2 +1,0 @@
-# AdapterApplicaton
-Adapter for RecyclerView

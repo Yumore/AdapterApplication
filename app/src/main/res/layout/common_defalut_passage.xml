@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/common_passage_root_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_padding_normal">
+
+    <RelativeLayout
+            android:id="@+id/common_passage_status_rl"
+            android:layout_width="25dp"
+            android:layout_height="25dp">
+
+        <ProgressBar
+                android:id="@+id/common_passage_loading_pb"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:indeterminateBehavior="repeat"
+                android:indeterminateDrawable="@drawable/common_loading_progress"
+                android:indeterminateOnly="true" />
+
+        <ImageView
+                android:id="@+id/common_passage_status_iv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="3dp"
+                android:visibility="gone"
+                tools:src="@drawable/icon_passage_success" />
+    </RelativeLayout>
+
+    <TextView
+            android:id="@+id/common_passage_status_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/common_padding_normal"
+            android:gravity="center"
+            android:textSize="16sp"
+            tools:text="加载状态" />
+</LinearLayout>

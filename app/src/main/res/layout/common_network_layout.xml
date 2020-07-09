@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="20dp">
+
+    <ImageView
+            android:id="@+id/common_network_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon_network_error" />
+
+    <TextView
+            android:id="@+id/common_network_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lines="2"
+            android:minHeight="@dimen/common_header_height_normal"
+            android:text="Please check your Internet connection and try again."
+            android:textColor="#636363" />
+
+    <TextView
+            android:id="@+id/common_network_option"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_header_height_normal"
+            android:background="@drawable/common_shape_circle_theme_solid"
+            android:gravity="center"
+            android:minWidth="160dp"
+            android:paddingLeft="@dimen/common_padding_normal"
+            android:paddingRight="@dimen/common_padding_normal"
+            android:text="Try again"
+            android:textColor="@android:color/white"
+            android:visibility="gone"
+            tools:visibility="visible" />
+</LinearLayout>

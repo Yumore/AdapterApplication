@@ -1,2 +1,4 @@
 rootProject.name='AdapterApplication'
-include ':app'
+include ':adapter'
+include ':refresh'
+include ':sample'

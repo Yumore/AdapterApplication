@@ -1,0 +1,7 @@
+<resources>
+    <string name="passage_tips_initialize">Scroll bottom to load more</string>
+    <string name="passage_tips_loading">Loading......</string>
+    <string name="passage_tips_success">Loading success</string>
+    <string name="passage_tips_failure">Loading failed, click to retry</string>
+    <string name="passage_tips_without">No More</string>
+</resources>

@@ -12,7 +12,7 @@ import com.nathaniel.adapter.R
  * @package com.vipon.adapter
  * @datetime 2020/4/5 - 2:22
  */
-class DefaultEmptyView(context: Context?) : BaseEmptyView(context) {
+open class DefaultEmptyView(context: Context?) : BaseEmptyView(context) {
     private var commonEmptyImage: ImageView? = null
     private var commonEmptyMessage: TextView? = null
     private var commonEmptyOption: TextView? = null
@@ -23,7 +23,7 @@ class DefaultEmptyView(context: Context?) : BaseEmptyView(context) {
     }
 
     override val emptyLayoutId: Int
-        protected get() = R.layout.common_empty_layout
+        get() = R.layout.common_empty_layout
 
     override fun setEmptyOptionText(optionText: CharSequence?, onEmptyListener: OnEmptyListener?) {
         if (TextUtils.isEmpty(optionText)) {
@@ -34,7 +34,7 @@ class DefaultEmptyView(context: Context?) : BaseEmptyView(context) {
         commonEmptyOption!!.setOnClickListener { onEmptyListener?.onEmpty() }
     }
 
-    protected override fun setEmptyMessage(emptyMessage: CharSequence?) {
+    override fun setEmptyMessage(emptyMessage: CharSequence?) {
         if (commonEmptyMessage != null) {
             commonEmptyMessage!!.text = emptyMessage
         }

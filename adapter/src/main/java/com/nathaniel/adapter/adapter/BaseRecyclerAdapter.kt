@@ -157,7 +157,7 @@ abstract class BaseRecyclerAdapter<T>
             headerLayout!!.removeViewAt(position)
         }
         val parentViewGroup = headerView.parent as ViewGroup
-        parentViewGroup?.removeView(headerView)
+        parentViewGroup.removeView(headerView)
         headerLayout!!.addView(headerView, position)
         notifyItemInserted(position)
         notifyDataSetChanged()
@@ -204,7 +204,7 @@ abstract class BaseRecyclerAdapter<T>
             footerLayout!!.removeViewAt(position)
         }
         val parentViewGroup = footerView.parent as ViewGroup
-        parentViewGroup?.removeView(footerView)
+        parentViewGroup.removeView(footerView)
         footerLayout!!.addView(footerView, position)
         notifyItemInserted(position)
         notifyDataSetChanged()
@@ -279,9 +279,7 @@ abstract class BaseRecyclerAdapter<T>
 
     fun setPassageEnable(context: Context, passageEnable: Boolean) {
         if (passageEnable) {
-            if (getPassageView(context) != null) {
-                removeFooterView(getPassageView(context))
-            }
+            removeFooterView(getPassageView(context))
             getPassageView(context).loadingStatus = BasePassageView.STATUS_LOADING
             addFooterView(getPassageView(context))
         } else {
@@ -298,9 +296,9 @@ abstract class BaseRecyclerAdapter<T>
     val footerCount: Int
         get() = if (footerLayout == null) 0 else footerLayout!!.childCount
     val dataSize: Int
-        get() = if (dataList == null) 0 else dataList.size
+        get() = if (dataList == null) 0 else dataList!!.size
     private val emptyCount: Int
-        private get() = if (emptyLayout == null) 0 else emptyLayout!!.childCount
+        get() = if (emptyLayout == null) 0 else emptyLayout!!.childCount
 
     companion object {
         private val TAG = BaseRecyclerAdapter::class.java.simpleName

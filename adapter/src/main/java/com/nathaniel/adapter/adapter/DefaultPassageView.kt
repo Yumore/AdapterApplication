@@ -13,14 +13,15 @@ import com.nathaniel.adapter.R
  * @package com.vipon.adapter
  * @datetime 2020/4/5 - 1:32
  */
-class DefaultPassageView(context: Context?) : BasePassageView(context) {
+open class DefaultPassageView(context: Context?) : BasePassageView(context) {
     private var commonPassageStatusRl: RelativeLayout? = null
     private var commonPassageLoadingPb: ProgressBar? = null
     private var commonPassageStatusIv: ImageView? = null
     private var commonPassageStatusTv: TextView? = null
-    override fun getPassageLayoutId(): Int {
-        return R.layout.common_defalut_passage
-    }
+
+    override val passageLayoutId: Int
+        get() = R.layout.common_defalut_passage
+
 
     override fun initialize() {
         commonPassageStatusRl = findViewById(R.id.common_passage_status_rl)

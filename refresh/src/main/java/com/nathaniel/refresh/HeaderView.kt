@@ -44,7 +44,7 @@ class HeaderView @SuppressLint("UseCompatLoadingForDrawables") constructor(conte
         headerRefreshFailure = resources.getString(R.string.header_refresh_failure)
         headerUpdate = resources.getString(R.string.header_update)
         mLastUpdateFormat = SimpleDateFormat(headerUpdate, Locale.getDefault())
-        tvRefreshTime!!.text = mLastUpdateFormat.format(Date())
+        tvRefreshTime!!.text = (mLastUpdateFormat as SimpleDateFormat).format(Date())
     }
 
     private fun initView(view: View) {

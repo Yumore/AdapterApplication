@@ -25,6 +25,7 @@ import java.lang.reflect.Array
  * @date 18-7-2 - 上午10:31
  */
 object EmptyUtils {
+    @JvmStatic
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     fun isObjectEmpty(`object`: Any?): Boolean {
         if (`object` == null) {

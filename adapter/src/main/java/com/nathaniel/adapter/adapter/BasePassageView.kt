@@ -38,9 +38,9 @@ abstract class BasePassageView : RelativeLayout {
         loadingStatus = STATUS_INITIAL
     }
 
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {}
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {}
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {}
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
+    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
+    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
 
     protected abstract val passageLayoutId: Int
     protected abstract fun initialize()
@@ -49,9 +49,6 @@ abstract class BasePassageView : RelativeLayout {
     protected abstract fun setLoadSuccessUi()
     protected abstract fun setLoadFailUi()
     protected abstract fun setWithoutUi()
-    fun setOnPassageListener(onPassageListener: OnPassageListener?) {
-        this.onPassageListener = onPassageListener
-    }
 
     companion object {
         const val STATUS_INITIAL = 0x00000001

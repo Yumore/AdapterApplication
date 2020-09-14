@@ -114,7 +114,7 @@ class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         childClickIdSet.add(viewId)
         getView<View>(viewId)!!.setOnClickListener { view ->
             if (baseRecyclerAdapter!!.onItemChildClickListener != null) {
-                baseRecyclerAdapter!!.onItemChildClickListener.onItemChildClick(baseRecyclerAdapter, view, adapterPosition)
+                baseRecyclerAdapter!!.onItemChildClickListener?.onItemChildClick(baseRecyclerAdapter, view, adapterPosition)
             }
         }
     }

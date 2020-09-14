@@ -1,4 +1,4 @@
-package com.nathaniel.adapter.adapter;
+package com.nathaniel.adapter.adapter
 
 /**
  * @author Nathaniel
@@ -6,6 +6,6 @@ package com.nathaniel.adapter.adapter;
  * @package com.vipon.adapter
  * @datetime 2020/4/5 - 2:34
  */
-public interface OnEmptyListener {
-    void onEmpty();
+interface OnEmptyListener {
+    fun onEmpty()
 }

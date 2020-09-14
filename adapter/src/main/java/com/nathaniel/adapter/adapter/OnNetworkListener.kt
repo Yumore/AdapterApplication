@@ -1,4 +1,4 @@
-package com.nathaniel.adapter.adapter;
+package com.nathaniel.adapter.adapter
 
 /**
  * @author Nathaniel
@@ -6,6 +6,6 @@ package com.nathaniel.adapter.adapter;
  * @package com.vipon.adapter
  * @datetime 2020/4/5 - 12:08
  */
-public interface OnNetworkListener {
-    void onNetwork();
+interface OnNetworkListener {
+    fun onNetwork()
 }

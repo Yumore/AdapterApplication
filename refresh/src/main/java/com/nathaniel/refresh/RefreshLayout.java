@@ -104,10 +104,10 @@ public class RefreshLayout extends ViewGroup {
     private boolean mAutoLoadMore = true;
     //是否拦截触摸事件，
     private boolean mInterceptTouchEvent = false;
-    private Handler mScrollHandler = new Handler();
+    private final Handler mScrollHandler = new Handler();
     private int oldOffsetY;
     private int mFlingOrientation;
-    private Runnable mScrollChangeListener = new Runnable() {
+    private final Runnable mScrollChangeListener = new Runnable() {
         @Override
         public void run() {
             if (listenScrollChange()) {
@@ -685,7 +685,7 @@ public class RefreshLayout extends ViewGroup {
     /**
      * 获取内容布局滑动到顶部的偏移量
      *
-     * @return
+     * @return 0
      */
     private int getScrollTopOffset() {
         if (getChildCount() >= 3) {
@@ -758,21 +758,23 @@ public class RefreshLayout extends ViewGroup {
 
     /**
      * 还原
+     *
+     * @param listened listened
      */
-    private void restore(boolean isListener) {
-        smoothScroll(getScrollY(), 0, 200, isListener, null);
+    private void restore(boolean listened) {
+        smoothScroll(getScrollY(), 0, 200, listened, null);
     }
 
     /**
      * 通知刷新完成。它会回调{@link OnHeaderStateListener#onRetract(View, boolean)}方法
      *
-     * @param isSuccess 是否刷新成功
+     * @param successful 是否刷新成功
      */
-    public void finishRefresh(boolean isSuccess) {
+    public void finishRefresh(boolean successful) {
         if (mIsRefreshing) {
             mCurrentState = STATE_NOT;
             if (mOnHeaderStateListener != null) {
-                mOnHeaderStateListener.onRetract(mHeaderView, isSuccess);
+                mOnHeaderStateListener.onRetract(mHeaderView, successful);
             }
         }
         postDelayed(new Runnable() {

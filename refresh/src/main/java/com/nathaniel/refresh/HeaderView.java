@@ -23,12 +23,10 @@ import java.util.Locale;
  */
 public class HeaderView extends RelativeLayout implements RefreshLayout.OnHeaderStateListener {
 
+    private final AnimationDrawable animationDrawable;
     private ImageView ivLoading;
     private TextView tvState;
     private TextView tvRefreshTime;
-
-    private AnimationDrawable animationDrawable;
-
     private DateFormat mLastUpdateFormat;
 
     private String headerPulling;
@@ -36,7 +34,6 @@ public class HeaderView extends RelativeLayout implements RefreshLayout.OnHeader
     private String headerRelease;
     private String headerRefreshFinish;
     private String headerRefreshFailure;
-    private String headerUpdate;
 
     @SuppressLint("UseCompatLoadingForDrawables")
     public HeaderView(Context context) {
@@ -57,7 +54,7 @@ public class HeaderView extends RelativeLayout implements RefreshLayout.OnHeader
         headerRelease = resources.getString(R.string.header_release);
         headerRefreshFinish = resources.getString(R.string.header_refresh_finish);
         headerRefreshFailure = resources.getString(R.string.header_refresh_failure);
-        headerUpdate = resources.getString(R.string.header_update);
+        String headerUpdate = resources.getString(R.string.header_update);
 
         mLastUpdateFormat = new SimpleDateFormat(headerUpdate, Locale.getDefault());
 

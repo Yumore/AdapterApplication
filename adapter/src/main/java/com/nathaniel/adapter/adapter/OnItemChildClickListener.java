@@ -9,5 +9,5 @@ import android.view.View;
  * @datetime 2020/4/19 - 16:58
  */
 public interface OnItemChildClickListener {
-    boolean onItemChildClick(BaseRecyclerAdapter adapter, View view, int position);
+    boolean onItemChildClick(BaseRecyclerAdapter<?> adapter, View view, int position);
 }

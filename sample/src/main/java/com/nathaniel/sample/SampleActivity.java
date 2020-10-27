@@ -127,18 +127,17 @@ public class SampleActivity extends AppCompatActivity implements OnItemClickList
     }
 
     @Override
-    public void onItemClick(BaseRecyclerAdapter adapter, View view, int position) {
+    public void onItemClick(BaseRecyclerAdapter<?> adapter, View view, int position) {
         Toast.makeText(this, "Item: 我被点击了" + position, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public boolean onItemChildClick(BaseRecyclerAdapter adapter, View view, int position) {
+    public boolean onItemChildClick(BaseRecyclerAdapter<?> adapter, View view, int position) {
         if (view.getId() == R.id.item_button_tv) {
             Toast.makeText(this, "Button: 我被点击了" + position, Toast.LENGTH_SHORT).show();
             return true;
         }
         return false;
-
     }
 
     @Override

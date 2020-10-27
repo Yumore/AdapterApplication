@@ -28,9 +28,9 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
     private static final int HEADER_VIEW = 0x00000111;
     private static final int FOOTER_VIEW = 0x00000333;
     private static final int EMPTY_VIEW = 0x00000555;
-    private List<T> dataList;
     @LayoutRes
-    private int layoutId;
+    private final int layoutId;
+    private List<T> dataList;
     private OnItemChildClickListener onItemChildClickListener;
     private OnItemClickListener onItemClickListener;
     private Context context;
@@ -61,7 +61,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
      * @param viewHolder viewHolder
      * @param data       data
      */
-    public abstract void bindDataToView(@NonNull BaseViewHolder viewHolder, T data);
+    public abstract void bindDataToView(BaseViewHolder viewHolder, T data);
 
     @NonNull
     @Override

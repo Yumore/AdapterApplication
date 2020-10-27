@@ -11,36 +11,34 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.nathaniel.adapter.adapter.BaseRecyclerAdapter;
 import com.nathaniel.adapter.adapter.OnItemChildClickListener;
 import com.nathaniel.adapter.adapter.OnItemClickListener;
 import com.nathaniel.adapter.utility.EmptyUtils;
 import com.nathaniel.adapter.utility.LoggerUtils;
+import com.nathaniel.refresh.FooterView;
+import com.nathaniel.refresh.HeaderView;
+import com.nathaniel.refresh.RefreshLayout;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  * @author nathaniel
  */
-public class SampleActivity extends AppCompatActivity implements OnItemClickListener, OnItemChildClickListener, SwipeRefreshLayout.OnRefreshListener {
-
+public class SampleActivity extends AppCompatActivity implements OnItemClickListener, OnItemChildClickListener, RefreshLayout.OnLoadMoreListener, RefreshLayout.OnRefreshListener {
+    private static final String RV_REFRESH_TIME = "RV_Refresh_Time";
     private static final String TAG = SampleActivity.class.getSimpleName();
     private List<String> dataList;
-    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private SampleAdapter sampleAdapter;
     private int passage = 1;
-
     @SuppressLint("HandlerLeak")
-    private Handler handler = new Handler() {
+    private final Handler handler = new Handler() {
         @Override
         public void handleMessage(@NonNull Message msg) {
-            if (swipeRefreshLayout.isRefreshing()) {
-                swipeRefreshLayout.setRefreshing(false);
-            }
             if (msg.what == 0x102) {
                 List<String> stringList = (List<String>) msg.obj;
                 if (passage == 1 && !EmptyUtils.isObjectEmpty(dataList)) {
@@ -60,6 +58,8 @@ public class SampleActivity extends AppCompatActivity implements OnItemClickList
         }
     };
     private boolean withoutMore, loading;
+    private RefreshLayout refreshLayout;
+    private HeaderView headerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +76,13 @@ public class SampleActivity extends AppCompatActivity implements OnItemClickList
         dataList = new ArrayList<>();
         sampleAdapter = new SampleAdapter(R.layout.item_recycler_list, dataList);
         requestData(passage);
+
+        //设置头部(刷新)
+        headerView = new HeaderView(this);
+        long refreshTime = PreferencesUtils.getRefreshTime(RV_REFRESH_TIME);
+        if (refreshTime > 0) {
+            headerView.setRefreshTime(new Date(refreshTime));
+        }
     }
 
     private void requestData(int passage) {
@@ -88,7 +95,6 @@ public class SampleActivity extends AppCompatActivity implements OnItemClickList
         recyclerView.setAdapter(sampleAdapter);
         sampleAdapter.setOnItemClickListener(this);
         sampleAdapter.setOnItemChildClickListener(this);
-        swipeRefreshLayout.setOnRefreshListener(this);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
@@ -105,12 +111,18 @@ public class SampleActivity extends AppCompatActivity implements OnItemClickList
                 LoggerUtils.logger(TAG, "visibleItemCount = " + visibleItemCount + ", lastVisibleItemPosition = " + lastVisibleItemPosition);
             }
         });
-        swipeRefreshLayout.setRefreshing(true);
 
+        refreshLayout.setHeaderView(headerView);
+        refreshLayout.setFooterView(new FooterView(this));
+
+        refreshLayout.setOnRefreshListener(this);
+        refreshLayout.setOnLoadMoreListener(this);
+
+        refreshLayout.autoRefresh();
     }
 
     private void initView() {
-        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        refreshLayout = (RefreshLayout) findViewById(R.id.refresh_layout);
         recyclerView = findViewById(R.id.recyclerView);
     }
 
@@ -121,24 +133,48 @@ public class SampleActivity extends AppCompatActivity implements OnItemClickList
 
     @Override
     public boolean onItemChildClick(BaseRecyclerAdapter adapter, View view, int position) {
-        switch (view.getId()) {
-            case R.id.item_button_tv:
-                Toast.makeText(this, "Button: 我被点击了" + position, Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-                return false;
+        if (view.getId() == R.id.item_button_tv) {
+            Toast.makeText(this, "Button: 我被点击了" + position, Toast.LENGTH_SHORT).show();
+            return true;
         }
+        return false;
 
     }
 
     @Override
+    public void onLoadMore() {
+        refreshLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //通知加载完成
+                if (sampleAdapter.getItemCount() < 50) {
+                    requestData(passage++);
+                    refreshLayout.finishLoadMore(true, true);
+                } else {
+                    refreshLayout.finishLoadMore(true, false);
+                }
+            }
+        }, 3000);
+    }
+
+    @Override
     public void onRefresh() {
-        passage = 1;
-        requestData(passage);
+        //延时3秒刷新完成，模拟网络加载的情况
+        refreshLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //通知刷新完成
+                refreshLayout.finishRefresh(true);
+                //是否还有更多数据
+                refreshLayout.hasMore(true);
+                passage = 1;
+                requestData(passage);
+            }
+        }, 3000);
     }
 
     private class LoadThread implements Runnable {
-        private int passage;
+        private final int passage;
 
         public LoadThread(int passage) {
             this.passage = passage;

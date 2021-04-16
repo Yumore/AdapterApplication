@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
  * @author Nathaniel
  * @date 2018/5/29-10:17
  */
-public class LoggerUtils {
+public final class LoggerUtils {
     private static final String TAG = LoggerUtils.class.getSimpleName();
 
     public static void logger(String message) {

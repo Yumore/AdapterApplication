@@ -1,4 +1,4 @@
-rootProject.name='AdapterApplication'
+include ':baseui'
 include ':adapter'
 include ':refresh'
 include ':sample'

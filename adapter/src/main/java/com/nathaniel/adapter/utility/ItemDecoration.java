@@ -18,7 +18,7 @@ import java.lang.annotation.RetentionPolicy;
  *
  * @author Nathaniel
  */
-public class ItemDecoration extends RecyclerView.ItemDecoration {
+public final class ItemDecoration extends RecyclerView.ItemDecoration {
 
     public static final int LINEAR_LAYOUT_MANAGER = 0;
     public static final int GRID_LAYOUT_MANAGER = 1;

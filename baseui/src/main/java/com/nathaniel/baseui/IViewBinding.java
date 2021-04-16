@@ -1,4 +1,4 @@
-package com.nathaniel.sample.binding;
+package com.nathaniel.baseui;
 
 /**
  * @author Nathaniel

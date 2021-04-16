@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.nathaniel.sample">
+    package="com.nathaniel.sample">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme">
+        android:name=".SampleApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
         <activity android:name="com.nathaniel.sample.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,20 +21,20 @@
         </activity>
         <activity android:name="com.nathaniel.sample.SampleActivity" />
         <activity
-                android:name="com.nathaniel.sample.RecyclerViewActivity"
-                android:label="嵌套RecyclerView" />
+            android:name="com.nathaniel.sample.RecyclerViewActivity"
+            android:label="嵌套RecyclerView" />
         <activity
-                android:name="com.nathaniel.sample.ListViewActivity"
-                android:label="嵌套ListView" />
+            android:name="com.nathaniel.sample.ListViewActivity"
+            android:label="嵌套ListView" />
         <activity
-                android:name="com.nathaniel.sample.NestedScrollViewActivity"
-                android:label="嵌套NestedScrollView" />
+            android:name="com.nathaniel.sample.NestedScrollViewActivity"
+            android:label="嵌套NestedScrollView" />
         <activity
-                android:name="com.nathaniel.sample.ScrollViewActivity"
-                android:label="嵌套ScrollView" />
+            android:name="com.nathaniel.sample.ScrollViewActivity"
+            android:label="嵌套ScrollView" />
         <activity
-                android:name="com.nathaniel.sample.WebViewActivity"
-                android:label="嵌套WebView" />
+            android:name="com.nathaniel.sample.WebViewActivity"
+            android:label="嵌套WebView" />
     </application>
 
 </manifest>

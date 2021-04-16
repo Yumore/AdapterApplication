@@ -31,7 +31,7 @@ public class SampleApplication extends Application {
             return;
         }
         AppStartTaskDispatcher.getInstance()
-            .setContext(this)
+            .setContext(context)
             .setDebuggable(true)
             .setAllTaskWaitTimeOut(1000)
             .addAppStartTask(new TestAppStartTaskTwo())

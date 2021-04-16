@@ -41,10 +41,10 @@ public class SampleActivity extends AppCompatActivity implements OnItemClickList
         public void handleMessage(@NonNull Message msg) {
             if (msg.what == 0x102) {
                 List<String> stringList = (List<String>) msg.obj;
-                if (passage == 1 && !EmptyUtils.isObjectEmpty(dataList)) {
+                if (passage == 1 && !EmptyUtils.isEmpty(dataList)) {
                     dataList.clear();
                 }
-                if (EmptyUtils.isObjectEmpty(stringList)) {
+                if (EmptyUtils.isEmpty(stringList)) {
                     sampleAdapter.setEmptyMessage(SampleActivity.this, "data is empty");
                 } else {
                     dataList.addAll(stringList);

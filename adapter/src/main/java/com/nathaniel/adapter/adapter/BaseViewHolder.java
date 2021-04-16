@@ -29,7 +29,7 @@ import java.util.LinkedHashSet;
  */
 public class BaseViewHolder extends RecyclerView.ViewHolder {
     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
-    private LinkedHashSet<Integer> childClickIdSet;
+    private final LinkedHashSet<Integer> childClickIdSet;
     private BaseRecyclerAdapter baseRecyclerAdapter;
     private SparseArray<View> viewSparseArray;
 

@@ -20,7 +20,7 @@ public class LoggerUtils {
     }
 
     private static void logger(@NonNull String tag, @NonNull Level level, String message) {
-        if (EmptyUtils.isObjectEmpty(message)) {
+        if (EmptyUtils.isEmpty(message)) {
             message = "logger message is empty in " + LoggerUtils.class.getSimpleName();
         }
         int length = message.length();

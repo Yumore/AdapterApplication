@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
     defaultConfig {
         applicationId "com.nathaniel.refreshlayout"
         minSdkVersion 21
@@ -10,15 +10,23 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {
     implementation project(':refresh')
     implementation project(':adapter')
+    implementation project(':startup')
+
+    implementation "androidx.multidex:multidex:2.0.1"
 }

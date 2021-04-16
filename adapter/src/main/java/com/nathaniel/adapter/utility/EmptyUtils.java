@@ -1,7 +1,5 @@
 package com.nathaniel.adapter.utility;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.util.SparseArray;
@@ -31,8 +29,7 @@ import java.util.Map;
  */
 public final class EmptyUtils {
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
-    public static boolean isObjectEmpty(Object object) {
+    public static boolean isEmpty(Object object) {
         if (object == null) {
             return true;
         }
@@ -42,13 +39,13 @@ public final class EmptyUtils {
         if (object.getClass().isArray() && Array.getLength(object) == 0) {
             return true;
         }
-        if (object instanceof Collection && ((Collection) object).isEmpty()) {
+        if (object instanceof Collection && ((Collection<?>) object).isEmpty()) {
             return true;
         }
-        if (object instanceof Map && ((Map) object).isEmpty()) {
+        if (object instanceof Map && ((Map<?, ?>) object).isEmpty()) {
             return true;
         }
-        if (object instanceof SparseArray && ((SparseArray) object).size() == 0) {
+        if (object instanceof SparseArray && ((SparseArray<?>) object).size() == 0) {
             return true;
         }
         if (object instanceof SparseBooleanArray && ((SparseBooleanArray) object).size() == 0) {
@@ -65,7 +62,7 @@ public final class EmptyUtils {
 
     public static boolean getLimitedEditor(@NonNull EditText editText, int minLength) {
         String string = getEditorText(editText, true);
-        return !isObjectEmpty(string) && string.length() >= minLength;
+        return !isEmpty(string) && string.length() >= minLength;
     }
 
     /**
@@ -77,7 +74,7 @@ public final class EmptyUtils {
      */
     public static String getEditorText(EditText editText, boolean trimEnable) {
         String result = getEditorText(editText);
-        if (!EmptyUtils.isObjectEmpty(result) && trimEnable) {
+        if (!EmptyUtils.isEmpty(result) && trimEnable) {
             result = result.trim();
         }
         return result;
@@ -90,11 +87,11 @@ public final class EmptyUtils {
      * @return string
      */
     private static String getEditorText(EditText editText) {
-        return isObjectEmpty(editText.getText()) ? null : editText.getText().toString();
+        return isEmpty(editText.getText()) ? null : editText.getText().toString();
     }
 
     @Deprecated
-    public static boolean isObjectNotEmpty(Object object) {
-        return !isObjectEmpty(object);
+    public static boolean isNotEmpty(Object object) {
+        return !isEmpty(object);
     }
 }

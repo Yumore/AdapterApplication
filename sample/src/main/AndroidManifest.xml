@@ -35,6 +35,12 @@
         <activity
             android:name="com.nathaniel.sample.WebViewActivity"
             android:label="嵌套WebView" />
+        <activity
+            android:name=".IncludeActivity"
+            android:label="包标签的id" />
+        <activity
+            android:name=".binding.DemoBindingActivity"
+            android:label="viewBinding" />
     </application>
 
 </manifest>

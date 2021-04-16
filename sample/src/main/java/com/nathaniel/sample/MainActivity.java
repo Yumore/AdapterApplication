@@ -6,6 +6,8 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.nathaniel.sample.binding.DemoBindingActivity;
+
 /**
  * @author nathaniel
  */
@@ -57,6 +59,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, SampleActivity.class));
+            }
+        });
+
+        findViewById(R.id.btn_view_binding).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, DemoBindingActivity.class));
+            }
+        });
+
+        findViewById(R.id.btn_same_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, IncludeActivity.class));
             }
         });
     }

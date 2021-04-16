@@ -3,6 +3,7 @@ package com.nathaniel.sample;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.view.View;
 import android.widget.Toast;
@@ -36,7 +37,7 @@ public class SampleActivity extends AppCompatActivity implements OnItemClickList
     private SampleAdapter sampleAdapter;
     private int passage = 1;
     @SuppressLint("HandlerLeak")
-    private final Handler handler = new Handler() {
+    private final Handler handler = new Handler(Looper.myLooper()) {
         @Override
         public void handleMessage(@NonNull Message msg) {
             if (msg.what == 0x102) {

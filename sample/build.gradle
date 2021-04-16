@@ -18,6 +18,11 @@ android {
         }
     }
 
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
     viewBinding {
         enabled = true
     }
@@ -27,6 +32,7 @@ dependencies {
     implementation project(':refresh')
     implementation project(':adapter')
     implementation project(':startup')
+    implementation project(':baseui')
 
     implementation "androidx.multidex:multidex:2.0.1"
 }

@@ -1,0 +1,64 @@
+import java.util.ArrayList;
+import java.util.List;
+
+import com.itheima.mobilesafe58.domain.AppInfo;
+
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
+
+/**
+ * 已安装应用的的信息提供者
+ *
+ * @author Kevin
+ *
+ */
+public class AppInfoProvider {
+
+	/**
+	 * 获取已安装的应用
+	 */
+	public static ArrayList<AppInfo> getAppInfos(Context ctx) {
+		PackageManager pm = ctx.getPackageManager();// 获取包管理器
+		List<PackageInfo> installedPackages = pm.getInstalledPackages(0);// 获取所有已安装的包,
+																			// 应用
+
+		ArrayList<AppInfo> list = new ArrayList<AppInfo>();
+		for (PackageInfo packageInfo : installedPackages) {
+			AppInfo info = new AppInfo();
+
+			String packageName = packageInfo.packageName;// 包名
+			ApplicationInfo applicationInfo = packageInfo.applicationInfo;// 应用的信息
+
+			String label = applicationInfo.loadLabel(pm).toString();// 应用名称
+			Drawable icon = applicationInfo.loadIcon(pm);// 应用图标
+
+			int uid = applicationInfo.uid;//应用的用户id
+
+			info.packageName = packageName;
+			info.label = label + uid;
+			info.icon = icon;
+
+			int flags = applicationInfo.flags;// 获取应用标记
+
+			//状态机
+			if ((flags & ApplicationInfo.FLAG_SYSTEM) == ApplicationInfo.FLAG_SYSTEM) {// 具备系统应用的特点
+				info.isUser = false;// 是系统应用
+			} else {
+				info.isUser = true;// 是用户应用
+			}
+
+			if ((flags & ApplicationInfo.FLAG_EXTERNAL_STORAGE) == ApplicationInfo.FLAG_EXTERNAL_STORAGE) {// 具备外置存储卡应用的特点
+				info.isSdcard = true;// 外置存储卡
+			} else {
+				info.isSdcard = false;// 手机内存
+			}
+
+			list.add(info);
+		}
+
+		return list;
+	}
+}

@@ -1,79 +1,44 @@
 package com.nathaniel.sample;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.nathaniel.baseui.AbstractActivity;
 import com.nathaniel.sample.binding.DemoBindingActivity;
+import com.nathaniel.sample.databinding.ActivityMainBinding;
 
 /**
  * @author nathaniel
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AbstractActivity<ActivityMainBinding> {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected ActivityMainBinding getViewBinding() {
+        return ActivityMainBinding.inflate(getLayoutInflater());
+    }
 
-        PreferencesUtils.initSharedPreferences(this);
+    @Override
+    public void loadData() {
 
-        findViewById(R.id.btn_recycler_view).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, RecyclerViewActivity.class));
-            }
-        });
+    }
 
-        findViewById(R.id.btn_list_view).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, ListViewActivity.class));
-            }
-        });
+    @Override
+    public void bindView() {
+        binding.btnRecyclerView.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, RecyclerViewActivity.class)));
 
-        findViewById(R.id.btn_nested_scroll_view).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, NestedScrollViewActivity.class));
-            }
-        });
+        binding.btnListView.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, ListViewActivity.class)));
 
-        findViewById(R.id.btn_scroll_view).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, ScrollViewActivity.class));
-            }
-        });
+        binding.btnNestedScrollView.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, NestedScrollViewActivity.class)));
 
-        findViewById(R.id.btn_web_view).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, WebViewActivity.class));
-            }
-        });
+        binding.btnScrollView.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, ScrollViewActivity.class)));
 
-        findViewById(R.id.btn_item_click).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, SampleActivity.class));
-            }
-        });
+        binding.btnWebView.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, WebViewActivity.class)));
 
-        findViewById(R.id.btn_view_binding).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, DemoBindingActivity.class));
-            }
-        });
+        binding.btnItemClick.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SampleActivity.class)));
 
-        findViewById(R.id.btn_same_id).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, IncludeActivity.class));
-            }
-        });
+        binding.btnViewBinding.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, DemoBindingActivity.class)));
+
+        binding.btnSameId.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, IncludeActivity.class)));
+
+        binding.btnPackage.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, PackageActivity.class)));
     }
 }

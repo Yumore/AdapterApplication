@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewbinding.ViewBinding;
 
+import com.nathaniel.adapter.utility.EmptyUtils;
 import com.nathaniel.adapter.utility.LoggerUtils;
 
 import java.util.List;
@@ -95,7 +96,9 @@ public abstract class BaseBindingAdapter<T, VB extends ViewBinding> extends Recy
     private void addViewListener(final BaseViewBindingHolder<VB> viewHolder) {
         viewHolder.getBinding().getRoot().setOnClickListener(view -> {
             LoggerUtils.logger(TAG, "real position: " + (viewHolder.getAdapterPosition() - getHeaderCount()) + ", view holder position: " + viewHolder.getAdapterPosition());
-            onItemClickListener.onItemClick(getAdapter(), view, viewHolder.getAdapterPosition() - getHeaderCount());
+            if (!EmptyUtils.isEmpty(onItemClickListener)) {
+                onItemClickListener.onItemClick(getAdapter(), view, viewHolder.getAdapterPosition() - getHeaderCount());
+            }
         });
     }
 

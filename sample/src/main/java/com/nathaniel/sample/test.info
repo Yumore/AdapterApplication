@@ -62,3 +62,55 @@ public class AppInfoProvider {
 		return list;
 	}
 }
+
+        /**
+	 * 返回所有的有互联网访问权限的应用程序的流量信息。
+	 * TrafficInfo 为一个Bean 模型类。使用的时候可以自定义一个、。
+	 * @return
+	 */
+	public List<TrafficInfo> getTrafficInfo(Context context) {
+		//获取到配置权限信息的应用程序
+		PackageManager pms = context.getPackageManager();;
+		List<PackageInfo> packinfos = pms
+				.getInstalledPackages(PackageManager.GET_PERMISSIONS);
+		//存放具有Internet权限信息的应用
+		List<TrafficInfo> trafficInfos = new ArrayList<TrafficInfo>();
+		for(PackageInfo packinfo : packinfos){
+			//获取该应用的所有权限信息
+			String[] permissions = packinfo.requestedPermissions;
+			if(permissions!=null&&permissions.length>0){
+				for(String permission : permissions){
+					//筛选出具有Internet权限的应用程序
+					if("android.permission.INTERNET".equals(permission)){
+						//用于封装具有Internet权限的应用程序信息
+						TrafficInfo trafficInfo = new TrafficInfo();
+						//封装应用信息
+						trafficInfo.setPackname(packinfo.packageName);
+						trafficInfo.setIcon(packinfo.applicationInfo.loadIcon(pm));
+						trafficInfo.setAppname(packinfo.applicationInfo.loadLabel(pm).toString());
+						//获取到应用的uid（user id）
+						int uid = packinfo.applicationInfo.uid;
+						//TrafficStats对象通过应用的uid来获取应用的下载、上传流量信息
+
+
+						//发送的 上传的流量byte
+						trafficInfo.setRx(TrafficStats.getUidRxBytes(uid));
+						 //下载的流量 byte
+						trafficInfo.setTx(TrafficStats.getUidTxBytes(uid));
+						trafficInfos.add(trafficInfo);
+						trafficInfo = null;
+						break;
+					}
+				}
+			}
+		}
+		return trafficInfos;
+	}
+
+TrafficStats.getMobileTxBytes();//获取手机3g/2g网络上传的总流量
+TrafficStats.getMobileRxBytes();//手机2g/3g下载的总流量
+
+TrafficStats.getTotalTxBytes();//手机全部网络接口 包括wifi，3g、2g上传的总流量
+TrafficStats.getTotalRxBytes();//手机全部网络接口 包括wifi，3g、2g下载的总流量
+
+

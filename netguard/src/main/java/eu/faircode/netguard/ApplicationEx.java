@@ -11,6 +11,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+/**
+ * @author admin
+ */
 public class ApplicationEx extends Application {
     private static final String TAG = ApplicationEx.class.getSimpleName();
 
@@ -19,7 +22,7 @@ public class ApplicationEx extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.i(TAG, "Create version=" + Util.getSelfVersionName(this) + "/" + Util.getSelfVersionCode(this));
+        Log.i(TAG, "Create version=" + GuardUtils.getSelfVersionName(this) + "/" + GuardUtils.getSelfVersionCode(this));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannels();
         }
@@ -27,7 +30,7 @@ public class ApplicationEx extends Application {
         Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
             @Override
             public void uncaughtException(@NonNull Thread thread, @NonNull Throwable throwable) {
-                if (Util.ownFault(ApplicationEx.this, throwable) && Util.isPlayStoreInstall(ApplicationEx.this)) {
+                if (GuardUtils.ownFault(ApplicationEx.this, throwable) && GuardUtils.isPlayStoreInstall(ApplicationEx.this)) {
                     Log.e(TAG, throwable.toString() + "\n" + Log.getStackTraceString(throwable));
                     exceptionHandler.uncaughtException(thread, throwable);
                 } else {

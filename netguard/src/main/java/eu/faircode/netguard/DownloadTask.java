@@ -19,6 +19,7 @@ package eu.faircode.netguard;
     Copyright 2015-2019 by Marcel Bokhorst (M66B)
 */
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -42,6 +43,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
+import eu.faircode.netguard.service.ServiceSinkhole;
+import eu.faircode.netguard.surface.ActivitySettings;
+
 public class DownloadTask extends AsyncTask<Object, Integer, Object> {
     private static final String TAG = "NetGuard.Download";
 
@@ -58,6 +62,7 @@ public class DownloadTask extends AsyncTask<Object, Integer, Object> {
         this.listener = listener;
     }
 
+    @SuppressLint("WakelockTimeout")
     @Override
     protected void onPreExecute() {
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
@@ -80,8 +85,9 @@ public class DownloadTask extends AsyncTask<Object, Integer, Object> {
 
             if (connection instanceof HttpURLConnection) {
                 HttpURLConnection httpConnection = (HttpURLConnection) connection;
-                if (httpConnection.getResponseCode() != HttpURLConnection.HTTP_OK)
+                if (httpConnection.getResponseCode() != HttpURLConnection.HTTP_OK) {
                     throw new IOException(httpConnection.getResponseCode() + " " + httpConnection.getResponseMessage());
+                }
             }
 
             int contentLength = connection.getContentLength();
@@ -96,8 +102,9 @@ public class DownloadTask extends AsyncTask<Object, Integer, Object> {
                 out.write(buffer, 0, bytes);
 
                 size += bytes;
-                if (contentLength > 0)
+                if (contentLength > 0) {
                     publishProgress((int) (size * 100 / contentLength));
+                }
             }
 
             Log.i(TAG, "Downloaded size=" + size);
@@ -106,20 +113,23 @@ public class DownloadTask extends AsyncTask<Object, Integer, Object> {
             return ex;
         } finally {
             try {
-                if (out != null)
+                if (out != null) {
                     out.close();
+                }
             } catch (IOException ex) {
                 Log.e(TAG, ex.toString() + "\n" + Log.getStackTraceString(ex));
             }
             try {
-                if (in != null)
+                if (in != null) {
                     in.close();
+                }
             } catch (IOException ex) {
                 Log.e(TAG, ex.toString() + "\n" + Log.getStackTraceString(ex));
             }
 
-            if (connection instanceof HttpURLConnection)
+            if (connection instanceof HttpURLConnection) {
                 ((HttpURLConnection) connection).disconnect();
+            }
         }
     }
 
@@ -143,8 +153,9 @@ public class DownloadTask extends AsyncTask<Object, Integer, Object> {
         if (result instanceof Throwable) {
             Log.e(TAG, result.toString() + "\n" + Log.getStackTraceString((Throwable) result));
             listener.onException((Throwable) result);
-        } else
+        } else {
             listener.onCompleted();
+        }
     }
 
     private void showNotification(int progress) {
@@ -163,9 +174,10 @@ public class DownloadTask extends AsyncTask<Object, Integer, Object> {
                 .setOngoing(true)
                 .setAutoCancel(false);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             builder.setCategory(NotificationCompat.CATEGORY_STATUS)
                     .setVisibility(NotificationCompat.VISIBILITY_SECRET);
+        }
 
         NotificationManagerCompat.from(context).notify(ServiceSinkhole.NOTIFY_DOWNLOAD, builder.build());
     }
@@ -177,5 +189,4 @@ public class DownloadTask extends AsyncTask<Object, Integer, Object> {
 
         void onException(Throwable ex);
     }
-
 }

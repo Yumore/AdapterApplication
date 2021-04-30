@@ -54,17 +54,17 @@
             android:value="2.1" />
 
         <activity
-            android:name=".ActivityMain"
+            android:name=".surface.ActivityMain"
             android:configChanges="orientation|screenSize"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:resizeableActivity="true" />
 
         <activity
-            android:name=".ActivitySettings"
+            android:name=".surface.ActivitySettings"
             android:configChanges="orientation|screenSize"
             android:label="@string/menu_settings"
-            android:parentActivityName=".ActivityMain">
+            android:parentActivityName=".surface.ActivityMain">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
             </intent-filter>
@@ -75,51 +75,51 @@
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ActivityMain" />
+                android:value=".surface.ActivityMain" />
         </activity>
 
         <activity
-            android:name=".ActivityLog"
+            android:name=".surface.ActivityLog"
             android:configChanges="orientation|screenSize"
             android:label="@string/menu_log"
-            android:parentActivityName=".ActivityMain">
+            android:parentActivityName=".surface.ActivityMain">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ActivityMain" />
+                android:value=".surface.ActivityMain" />
         </activity>
 
         <activity
-            android:name=".ActivityPro"
+            android:name=".surface.ActivityPro"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_pro"
-            android:parentActivityName=".ActivityMain">
+            android:parentActivityName=".surface.ActivityMain">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ActivityMain" />
+                android:value=".surface.ActivityMain" />
         </activity>
 
         <activity
-            android:name=".ActivityDns"
+            android:name=".surface.ActivityDns"
             android:configChanges="orientation|screenSize"
             android:label="@string/setting_show_resolved"
-            android:parentActivityName=".ActivitySettings">
+            android:parentActivityName=".surface.ActivitySettings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ActivitySettings" />
+                android:value=".surface.ActivitySettings" />
         </activity>
 
         <activity
-            android:name=".ActivityForwarding"
+            android:name=".surface.ActivityForwarding"
             android:configChanges="orientation|screenSize"
             android:label="@string/setting_forwarding"
-            android:parentActivityName=".ActivitySettings">
+            android:parentActivityName=".surface.ActivitySettings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ActivitySettings" />
+                android:value=".surface.ActivitySettings" />
         </activity>
 
         <activity
-            android:name=".ActivityForwardApproval"
+            android:name=".surface.ActivityForwardApproval"
             android:configChanges="orientation|screenSize"
             android:label="@string/app_name"
             android:theme="@style/AppDialog">
@@ -130,7 +130,7 @@
         </activity>
 
         <service
-            android:name=".ServiceSinkhole"
+            android:name=".service.ServiceSinkhole"
             android:label="@string/app_name"
             android:permission="android.permission.BIND_VPN_SERVICE">
             <intent-filter>
@@ -139,7 +139,7 @@
         </service>
 
         <service
-            android:name=".ServiceExternal"
+            android:name=".service.ServiceExternal"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="eu.faircode.netguard.DOWNLOAD_HOSTS_FILE" />
@@ -147,7 +147,7 @@
         </service>
 
         <service
-            android:name=".ServiceTileMain"
+            android:name=".service.ServiceTileMain"
             android:icon="@drawable/ic_security_white_24dp"
             android:label="@string/app_name"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -157,7 +157,7 @@
         </service>
 
         <service
-            android:name=".ServiceTileGraph"
+            android:name=".service.ServiceTileGraph"
             android:icon="@drawable/ic_equalizer_white_24dp"
             android:label="@string/setting_stats_category"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -167,7 +167,7 @@
         </service>
 
         <service
-            android:name=".ServiceTileFilter"
+            android:name=".service.ServiceTileFilter"
             android:icon="@drawable/ic_filter_list_white_24dp"
             android:label="@string/setting_filter"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -177,7 +177,7 @@
         </service>
 
         <service
-            android:name=".ServiceTileLockdown"
+            android:name=".service.ServiceTileLockdown"
             android:icon="@drawable/ic_lock_outline_white_24dp"
             android:label="@string/setting_lockdown"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -187,7 +187,7 @@
         </service>
 
         <receiver
-            android:name=".ReceiverAutostart"
+            android:name=".receiver.ReceiverAutoRestart"
             android:label="@string/app_name">
             <intent-filter android:priority="999">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -195,7 +195,7 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".ReceiverPackageRemoved">
+        <receiver android:name=".receiver.ReceiverPackageRemoved">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_FULLY_REMOVED" />
                 <data android:scheme="package" />
@@ -203,7 +203,7 @@
         </receiver>
 
         <receiver
-            android:name=".WidgetMain"
+            android:name=".receiver.WidgetMain"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -214,7 +214,7 @@
         </receiver>
 
         <receiver
-            android:name=".WidgetLockdown"
+            android:name=".receiver.WidgetLockdown"
             android:label="@string/setting_lockdown">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -225,7 +225,7 @@
         </receiver>
 
         <receiver
-            android:name=".WidgetAdmin"
+            android:name=".receiver.WidgetAdmin"
             android:label="@string/app_name"
             android:permission="eu.faircode.netguard.permission.ADMIN">
             <intent-filter>

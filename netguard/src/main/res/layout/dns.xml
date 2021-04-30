@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    tools:context=".ActivityDns">
+    tools:context=".surface.ActivityDns">
 
     <LinearLayout
         android:layout_width="60dp"

@@ -357,7 +357,7 @@ Java_eu_faircode_netguard_ServiceSinkhole_jni_1done(
 // JNI Util
 
 JNIEXPORT jstring JNICALL
-Java_eu_faircode_netguard_Util_jni_1getprop(JNIEnv *env, jclass type, jstring name_) {
+Java_eu_faircode_netguard_GuardUtils_jni_1getprop(JNIEnv *env, jclass type, jstring name_) {
     const char *name = (*env)->GetStringUTFChars(env, name_, 0);
     ng_add_alloc(name, "name");
 
@@ -371,7 +371,7 @@ Java_eu_faircode_netguard_Util_jni_1getprop(JNIEnv *env, jclass type, jstring na
 }
 
 JNIEXPORT jboolean JNICALL
-Java_eu_faircode_netguard_Util_is_1numeric_1address(JNIEnv *env, jclass type, jstring ip_) {
+Java_eu_faircode_netguard_GuardUtils_is_1numeric_1address(JNIEnv *env, jclass type, jstring ip_) {
     jboolean numeric = 0;
     const char *ip = (*env)->GetStringUTFChars(env, ip_, 0);
     ng_add_alloc(ip, "ip");
@@ -1097,7 +1097,7 @@ void ng_dump() {
 }
 
 JNIEXPORT void JNICALL
-Java_eu_faircode_netguard_Util_dump_1memory_1profile(JNIEnv *env, jclass type) {
+Java_eu_faircode_netguard_GuardUtils_dump_1memory_1profile(JNIEnv *env, jclass type) {
 #ifdef PROFILE_MEMORY
     log_android(ANDROID_LOG_DEBUG, "Dump memory profile");
 

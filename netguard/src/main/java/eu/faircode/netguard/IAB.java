@@ -40,6 +40,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import eu.faircode.netguard.surface.ActivityPro;
+
 public class IAB implements ServiceConnection {
     private static final String TAG = "NetGuard.IAB";
     private static final int IAB_VERSION = 3;
@@ -60,14 +62,15 @@ public class IAB implements ServiceConnection {
 
     public static boolean isPurchased(String sku, Context context) {
         try {
-            if (Util.isDebuggable(context)) {
+            if (GuardUtils.isDebuggable(context)) {
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
                 return !prefs.getBoolean("debug_iab", false);
             }
 
             SharedPreferences prefs = context.getSharedPreferences("IAB", Context.MODE_PRIVATE);
-            if (ActivityPro.SKU_SUPPORT1.equals(sku) || ActivityPro.SKU_SUPPORT2.equals(sku))
+            if (ActivityPro.SKU_SUPPORT1.equals(sku) || ActivityPro.SKU_SUPPORT2.equals(sku)) {
                 return prefs.getBoolean(sku, false);
+            }
 
             return (prefs.getBoolean(sku, false) ||
                     prefs.getBoolean(ActivityPro.SKU_PRO1, false) ||
@@ -81,15 +84,17 @@ public class IAB implements ServiceConnection {
 
     public static boolean isPurchasedAny(Context context) {
         try {
-            if (Util.isDebuggable(context)) {
+            if (GuardUtils.isDebuggable(context)) {
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
                 return !(prefs.getBoolean("debug_iab", false));
             }
 
             SharedPreferences prefs = context.getSharedPreferences("IAB", Context.MODE_PRIVATE);
-            for (String key : prefs.getAll().keySet())
-                if (prefs.getBoolean(key, false))
+            for (String key : prefs.getAll().keySet()) {
+                if (prefs.getBoolean(key, false)) {
                     return true;
+                }
+            }
             return false;
         } catch (SecurityException ignored) {
             return false;
@@ -157,16 +162,17 @@ public class IAB implements ServiceConnection {
         query.putStringArrayList("ITEM_ID_LIST", skuList);
         Bundle bundle = service.getSkuDetails(IAB_VERSION, context.getPackageName(), "inapp", query);
         Log.i(TAG, "getSkuDetails");
-        Util.logBundle(bundle);
+        GuardUtils.logBundle(bundle);
         int response = (bundle == null ? -1 : bundle.getInt("RESPONSE_CODE", -1));
         Log.i(TAG, "Response=" + getResult(response));
-        if (response != 0)
+        if (response != 0) {
             throw new IllegalArgumentException(getResult(response));
+        }
 
         // Check available SKUs
         boolean found = false;
         ArrayList<String> details = bundle.getStringArrayList("DETAILS_LIST");
-        if (details != null)
+        if (details != null) {
             for (String item : details) {
                 JSONObject object = new JSONObject(item);
                 if (sku.equals(object.getString("productId"))) {
@@ -174,6 +180,7 @@ public class IAB implements ServiceConnection {
                     break;
                 }
             }
+        }
         Log.i(TAG, sku + "=" + found);
 
         return found;
@@ -187,11 +194,12 @@ public class IAB implements ServiceConnection {
 
         SharedPreferences prefs = context.getSharedPreferences("IAB", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        for (String product : prefs.getAll().keySet())
+        for (String product : prefs.getAll().keySet()) {
             if (!ActivityPro.SKU_DONATION.equals(product)) {
                 Log.i(TAG, "removing SKU=" + product);
                 editor.remove(product);
             }
+        }
         for (String sku : skus) {
             Log.i(TAG, "adding SKU=" + sku);
             editor.putBoolean(sku, true);
@@ -207,28 +215,32 @@ public class IAB implements ServiceConnection {
         // Get purchases
         Bundle bundle = service.getPurchases(IAB_VERSION, context.getPackageName(), type, null);
         Log.i(TAG, "getPurchases");
-        Util.logBundle(bundle);
+        GuardUtils.logBundle(bundle);
         int response = (bundle == null ? -1 : bundle.getInt("RESPONSE_CODE", -1));
         Log.i(TAG, "Response=" + getResult(response));
-        if (response != 0)
+        if (response != 0) {
             throw new IllegalArgumentException(getResult(response));
+        }
 
         ArrayList<String> details = bundle.getStringArrayList("INAPP_PURCHASE_ITEM_LIST");
         return (details == null ? new ArrayList<String>() : details);
     }
 
     public PendingIntent getBuyIntent(String sku, boolean subscription) throws RemoteException {
-        if (service == null)
+        if (service == null) {
             return null;
+        }
         Bundle bundle = service.getBuyIntent(IAB_VERSION, context.getPackageName(), sku, subscription ? "subs" : "inapp", "netguard");
         Log.i(TAG, "getBuyIntent sku=" + sku + " subscription=" + subscription);
-        Util.logBundle(bundle);
+        GuardUtils.logBundle(bundle);
         int response = (bundle == null ? -1 : bundle.getInt("RESPONSE_CODE", -1));
         Log.i(TAG, "Response=" + getResult(response));
-        if (response != 0)
+        if (response != 0) {
             throw new IllegalArgumentException(getResult(response));
-        if (!bundle.containsKey("BUY_INTENT"))
+        }
+        if (!bundle.containsKey("BUY_INTENT")) {
             throw new IllegalArgumentException("BUY_INTENT missing");
+        }
         return bundle.getParcelable("BUY_INTENT");
     }
 

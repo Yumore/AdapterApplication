@@ -1,6 +1,8 @@
 package com.nathaniel.sample;
 
 import android.annotation.SuppressLint;
+import android.app.usage.NetworkStats;
+import android.app.usage.NetworkStatsManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -11,9 +13,22 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.TrafficStats;
+import android.os.Build;
+import android.os.RemoteException;
+import android.telephony.TelephonyManager;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
+import com.nathaniel.adapter.utility.EmptyUtils;
+import com.nathaniel.adapter.utility.LoggerUtils;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +41,8 @@ import java.util.List;
  */
 public class AppUtils {
 
+    private static final String TAG = AppUtils.class.getSimpleName();
+
     private static List<String> getAllInstalledApkInfo(Context context) {
         List<String> packageNames = new ArrayList<>();
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
@@ -35,9 +52,9 @@ public class AppUtils {
         List<ResolveInfo> resolveInfoList = context.getPackageManager().queryIntentActivities(intent, 0);
         for (ResolveInfo resolveInfo : resolveInfoList) {
             ActivityInfo activityInfo = resolveInfo.activityInfo;
-            if (!isSystemPackage(resolveInfo)) {
-                packageNames.add(activityInfo.applicationInfo.packageName);
-            }
+//            if (!isSystemPackage(resolveInfo)) {
+            packageNames.add(activityInfo.applicationInfo.packageName);
+//            }
         }
         return packageNames;
     }
@@ -118,6 +135,7 @@ public class AppUtils {
     }
 
     public static List<PackageEntity> getPackageEntities(Context context) {
+        List<String[]> stringsList = getNetworkUsageAllUid();
         List<PackageEntity> packageEntities = new ArrayList<>();
         @SuppressLint("QueryPermissionsNeeded")
         List<PackageInfo> installedPackages = context.getPackageManager().getInstalledPackages(0);
@@ -128,13 +146,102 @@ public class AppUtils {
             packageEntity.setVersionName(packageInfo.versionName);
             packageEntity.setVersionCode(packageInfo.versionCode);
             packageEntity.setAppIcon(packageInfo.applicationInfo.loadIcon(context.getPackageManager()));
-            if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
-                packageEntities.add(packageEntity);
+            packageEntity.setPid(packageInfo.applicationInfo.uid);
+
+            if (EmptyUtils.isEmpty(stringsList)) {
+                // NetworkManagementSocketTagger和TrafficStats.setThreadStatsUid()
+                int uid = packageInfo.applicationInfo.uid;
+                packageEntity.setRx(TrafficStats.getUidRxBytes(uid));
+                packageEntity.setTx(TrafficStats.getUidTxBytes(uid));
+            } else {
+                long[] totalData = getNetworkUsageByUid(packageInfo.applicationInfo.uid);
+                packageEntity.setRx(totalData[0]);
+                packageEntity.setTx(totalData[1]);
+//                for (String[] strings : stringsList) {
+//                    if (Integer.parseInt(strings[3]) == packageInfo.applicationInfo.uid) {
+//                        packageEntity.setRx(Integer.parseInt(strings[5]));
+//                        packageEntity.setTx(Integer.parseInt(strings[7]));
+//                        break;
+//                    }
+//                }
             }
+//            if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+            packageEntities.add(packageEntity);
+//            }
         }
         return packageEntities;
     }
 
+    public static long[] getNetworkUsage() {
+        BufferedReader bufferedReader;
+        String line;
+        String[] values;
+        long[] totalBytes = new long[2];
+        try {
+            bufferedReader = new BufferedReader(new FileReader("/proc/net/dev"));
+            while ((line = bufferedReader.readLine()) != null) {
+                // LoggerUtils.logger(TAG, String.format("source content is : %s", line.trim()));
+                if (line.contains("eth") || line.contains("lo") || line.contains("wlan")) {
+                    values = line.trim().split("\\s+");
+                    totalBytes[0] += Long.parseLong(values[1]);
+                    totalBytes[1] += Long.parseLong(values[9]);
+                }
+            }
+            bufferedReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return totalBytes;
+    }
+
+    //
+    public static long[] getNetworkUsageByUid(long uid) {
+        BufferedReader bufferedReader;
+        String line;
+        String[] values;
+        long[] totalBytes = new long[2];
+        try {
+            @SuppressLint("DefaultLocale")
+            String filePath = String.format("/proc/%d/net/dev", uid);
+            bufferedReader = new BufferedReader(new FileReader(filePath));
+            while ((line = bufferedReader.readLine()) != null) {
+                if (line.contains("eth") || line.contains("lo") || line.contains("wlan")) {
+                    values = line.trim().split("\\s+");
+                    totalBytes[0] += Long.parseLong(values[1]);
+                    totalBytes[1] += Long.parseLong(values[9]);
+                }
+            }
+            bufferedReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return totalBytes;
+    }
+
+    public static List<String[]> getNetworkUsageAllUid() {
+        BufferedReader bufferedReader;
+        String line;
+        List<String[]> stringsList = new ArrayList<>();
+        try {
+            String filePath = "/proc/net/xt_qtaguid/stats";
+            if (!new File(filePath).exists()) {
+                return stringsList;
+            }
+            bufferedReader = new BufferedReader(new FileReader(filePath));
+            while ((line = bufferedReader.readLine()) != null) {
+                LoggerUtils.logger(TAG, String.format("source content is : %s", line.trim()));
+                if (line.contains("idx")) {
+                    continue;
+                }
+                String[] values = line.trim().split("\\s+");
+                stringsList.add(values);
+            }
+            bufferedReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return stringsList;
+    }
 
     /**
      * 获取应用程序名称
@@ -168,7 +275,6 @@ public class AppUtils {
         return null;
     }
 
-
     /**
      * [获取应用程序版本名称信息]
      *
@@ -185,7 +291,6 @@ public class AppUtils {
         }
         return 0;
     }
-
 
     /**
      * [获取应用程序版本名称信息]
@@ -204,7 +309,6 @@ public class AppUtils {
         return null;
     }
 
-
     /**
      * 获取图标 bitmap
      *
@@ -222,5 +326,54 @@ public class AppUtils {
         Drawable applicationIcon = packageManager.getApplicationIcon(applicationInfo);
         BitmapDrawable bitmapDrawable = (BitmapDrawable) applicationIcon;
         return bitmapDrawable.getBitmap();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public long getAllRxBytesMobile(Context context) {
+        final long startTime = 0;
+        NetworkStats.Bucket bucket;
+        NetworkStatsManager networkStatsManager = (NetworkStatsManager) context.getSystemService(Context.NETWORK_STATS_SERVICE);
+        try {
+            bucket = networkStatsManager.querySummaryForDevice(ConnectivityManager.TYPE_MOBILE,
+                    getSubscriberId(context, ConnectivityManager.TYPE_MOBILE),
+                    startTime,
+                    System.currentTimeMillis());
+        } catch (RemoteException e) {
+            return -1;
+        }
+        return bucket.getRxBytes();
+    }
+
+    @SuppressLint({"MissingPermission", "HardwareIds"})
+    private String getSubscriberId(Context context, int networkType) {
+        if (ConnectivityManager.TYPE_MOBILE == networkType) {
+            TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            return telephonyManager.getSubscriberId();
+        }
+        return "";
+    }
+
+    public void listInstallPackages(Context context) {
+        PackageManager packageManager = context.getPackageManager();
+        String[] packageNames = null;
+        int uid = 1000;
+        while (uid <= 19999) {
+            packageNames = packageManager.getPackagesForUid(uid);
+            if (packageNames != null && packageNames.length > 0) {
+                for (String item : packageNames) {
+                    try {
+                        final PackageInfo packageInfo = packageManager.getPackageInfo(item, 0);
+                        if (packageInfo == null) {
+                            break;
+                        }
+                        CharSequence applicationLabel = packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageInfo.packageName, PackageManager.GET_META_DATA));
+                        LoggerUtils.logger(TAG, LoggerUtils.Level.DEBUG, "应用名称 = " + applicationLabel.toString() + " (" + packageInfo.packageName + ")");
+                    } catch (PackageManager.NameNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            uid++;
+        }
     }
 }

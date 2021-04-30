@@ -15,6 +15,33 @@ public class PackageEntity {
     private String appName;
     private int versionCode;
     private String versionName;
+    private long rx;
+    private long tx;
+    private int pid;
+
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
+
+    public long getRx() {
+        return rx;
+    }
+
+    public void setRx(long rx) {
+        this.rx = rx;
+    }
+
+    public long getTx() {
+        return tx;
+    }
+
+    public void setTx(long tx) {
+        this.tx = tx;
+    }
 
     public String getPackageName() {
         return packageName;
@@ -54,5 +81,19 @@ public class PackageEntity {
 
     public void setVersionName(String versionName) {
         this.versionName = versionName;
+    }
+
+    @Override
+    public String toString() {
+        return "PackageEntity{" +
+                "packageName='" + packageName + '\'' +
+                ", appIcon=" + appIcon +
+                ", appName='" + appName + '\'' +
+                ", versionCode=" + versionCode +
+                ", versionName='" + versionName + '\'' +
+                ", rx=" + rx +
+                ", tx=" + tx +
+                ", pid=" + pid +
+                '}';
     }
 }

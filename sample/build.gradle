@@ -33,6 +33,7 @@ dependencies {
     implementation project(':adapter')
     implementation project(':startup')
     implementation project(':baseui')
+    implementation project(':netguard')
 
     implementation "androidx.multidex:multidex:2.0.1"
 }

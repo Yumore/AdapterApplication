@@ -19,7 +19,7 @@ public final class LoggerUtils {
         logger(tag, Level.ERROR, message);
     }
 
-    private static void logger(@NonNull String tag, @NonNull Level level, String message) {
+    public static void logger(@NonNull String tag, @NonNull Level level, String message) {
         if (EmptyUtils.isEmpty(message)) {
             message = "logger message is empty in " + LoggerUtils.class.getSimpleName();
         }

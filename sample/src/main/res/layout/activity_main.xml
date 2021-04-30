@@ -66,4 +66,11 @@
         android:layout_height="wrap_content"
         android:text="package network"
         android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_net_guard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="network guard"
+        android:textAllCaps="false" />
 </LinearLayout>

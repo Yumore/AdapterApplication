@@ -6,6 +6,8 @@ import com.nathaniel.baseui.AbstractActivity;
 import com.nathaniel.sample.binding.DemoBindingActivity;
 import com.nathaniel.sample.databinding.ActivityMainBinding;
 
+import eu.faircode.netguard.ActivityMain;
+
 /**
  * @author nathaniel
  */
@@ -40,5 +42,7 @@ public class MainActivity extends AbstractActivity<ActivityMainBinding> {
         binding.btnSameId.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, IncludeActivity.class)));
 
         binding.btnPackage.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, PackageActivity.class)));
+
+        binding.btnNetGuard.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, ActivityMain.class)));
     }
 }

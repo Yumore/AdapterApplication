@@ -104,7 +104,7 @@ public abstract class BaseBindingAdapter<T, VB extends ViewBinding> extends Recy
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewBindingHolder<VB> viewHolder, int position) {
-        LoggerUtils.logger(TAG, "adapter position = " + position + ", view holder position = " + (viewHolder.getAdapterPosition() - getHeaderCount()) + ", list size = " + getDataSize() + " binding is : " + viewHolder.getBinding().getClass().getSimpleName());
+        LoggerUtils.logger(TAG, LoggerUtils.Level.DEBUG, "adapter position = " + position + ", view holder position = " + (viewHolder.getAdapterPosition() - getHeaderCount()) + ", list size = " + getDataSize() + " binding is : " + viewHolder.getBinding().getClass().getSimpleName());
         if (isHeaderView(position) || isEmptyView(position) || isFooterView(position)) {
             LoggerUtils.logger(TAG, "item is header or footer or empty");
             return;

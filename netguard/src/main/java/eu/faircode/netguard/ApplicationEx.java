@@ -1,5 +1,24 @@
 package eu.faircode.netguard;
 
+/*
+    This file is part of NetGuard.
+
+    NetGuard is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    NetGuard is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with NetGuard.  If not, see <http://www.gnu.org/licenses/>.
+
+    Copyright 2015-2019 by Marcel Bokhorst (M66B)
+*/
+
 import android.annotation.TargetApi;
 import android.app.Application;
 import android.app.Notification;
@@ -9,32 +28,29 @@ import android.content.Context;
 import android.os.Build;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
-/**
- * @author admin
- */
 public class ApplicationEx extends Application {
-    private static final String TAG = ApplicationEx.class.getSimpleName();
+    private static final String TAG = "NetGuard.App";
 
-    private Thread.UncaughtExceptionHandler exceptionHandler;
+    private Thread.UncaughtExceptionHandler mPrevHandler;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.i(TAG, "Create version=" + GuardUtils.getSelfVersionName(this) + "/" + GuardUtils.getSelfVersionCode(this));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        Log.i(TAG, "Create version=" + Util.getSelfVersionName(this) + "/" + Util.getSelfVersionCode(this));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             createNotificationChannels();
-        }
-        exceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
+
+        mPrevHandler = Thread.getDefaultUncaughtExceptionHandler();
         Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
             @Override
-            public void uncaughtException(@NonNull Thread thread, @NonNull Throwable throwable) {
-                if (GuardUtils.ownFault(ApplicationEx.this, throwable) && GuardUtils.isPlayStoreInstall(ApplicationEx.this)) {
-                    Log.e(TAG, throwable.toString() + "\n" + Log.getStackTraceString(throwable));
-                    exceptionHandler.uncaughtException(thread, throwable);
+            public void uncaughtException(Thread thread, Throwable ex) {
+                if (Util.ownFault(ApplicationEx.this, ex)
+                    && Util.isPlayStoreInstall(ApplicationEx.this)) {
+                    Log.e(TAG, ex.toString() + "\n" + Log.getStackTraceString(ex));
+                    mPrevHandler.uncaughtException(thread, ex);
                 } else {
-                    Log.w(TAG, throwable.toString() + "\n" + Log.getStackTraceString(throwable));
+                    Log.w(TAG, ex.toString() + "\n" + Log.getStackTraceString(ex));
                     System.exit(1);
                 }
             }

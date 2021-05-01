@@ -8,7 +8,7 @@
         android:shortcutShortLabel="@string/menu_settings">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="eu.faircode.netguard.surface.ActivitySettings"
+            android:targetClass="eu.faircode.netguard.ActivitySettings"
             android:targetPackage="eu.faircode.netguard" />
         <categories android:name="android.shortcut.settings" />
     </shortcut>
@@ -21,7 +21,7 @@
         android:shortcutShortLabel="@string/menu_log">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="eu.faircode.netguard.surface.ActivityLog"
+            android:targetClass="eu.faircode.netguard.ActivityLog"
             android:targetPackage="eu.faircode.netguard" />
         <categories android:name="android.shortcut.log" />
     </shortcut>

@@ -6,7 +6,8 @@ import com.nathaniel.baseui.AbstractActivity;
 import com.nathaniel.sample.binding.DemoBindingActivity;
 import com.nathaniel.sample.databinding.ActivityMainBinding;
 
-import eu.faircode.netguard.surface.ActivityMain;
+import eu.faircode.netguard.ActivityMain;
+
 
 /**
  * @author nathaniel

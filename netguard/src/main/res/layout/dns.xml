@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    tools:context=".surface.ActivityDns">
+    tools:context=".ActivityDns">
 
     <LinearLayout
         android:layout_width="60dp"
@@ -30,8 +30,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -53,8 +53,8 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
         android:orientation="vertical">
 
         <TextView

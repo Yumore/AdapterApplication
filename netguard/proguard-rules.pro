@@ -29,19 +29,19 @@
 }
 
 #JNI callbacks
--keep class eu.faircode.netguard.entity.Allowed { *; }
--keep class eu.faircode.netguard.entity.Packet { *; }
--keep class eu.faircode.netguard.entity.ResourceRecord { *; }
--keep class eu.faircode.netguard.entity.Usage { *; }
--keep class eu.faircode.netguard.service.ServiceSinkhole {
+-keep class eu.faircode.netguard.Allowed { *; }
+-keep class eu.faircode.netguard.Packet { *; }
+-keep class eu.faircode.netguard.ResourceRecord { *; }
+-keep class eu.faircode.netguard.Usage { *; }
+-keep class eu.faircode.netguard.ServiceSinkhole {
     void nativeExit(java.lang.String);
     void nativeError(int, java.lang.String);
-    void logPacket(eu.faircode.netguard.entity.Packet);
-    void dnsResolved(eu.faircode.netguard.entity.ResourceRecord);
+    void logPacket(eu.faircode.netguard.Packet);
+    void dnsResolved(eu.faircode.netguard.ResourceRecord);
     boolean isDomainBlocked(java.lang.String);
     int getUidQ(int, int, java.lang.String, int, java.lang.String, int);
-    eu.faircode.netguard.entity.Allowed isAddressAllowed(eu.faircode.netguard.entity.Packet);
-    void accountUsage(eu.faircode.netguard.entity.Usage);
+    eu.faircode.netguard.Allowed isAddressAllowed(eu.faircode.netguard.Packet);
+    void accountUsage(eu.faircode.netguard.Usage);
 }
 
 #AndroidX

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    tools:context=".surface.ActivityMain">
+    tools:context=".ActivityMain">
 
     <TextView
         android:id="@+id/tvTime"
@@ -54,8 +54,8 @@
                 android:id="@+id/tvTraffic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
                 android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
                 android:singleLine="true"
                 android:textAppearance="@style/TextSmall"
                 android:textSize="10sp"

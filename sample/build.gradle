@@ -1,22 +1,55 @@
 apply plugin: 'com.android.application'
 
+
+Properties properties = new Properties()
+File configFile = project.rootProject.file("config.properties")
+if (configFile.exists() && configFile.canRead()) {
+    properties.load(configFile.newDataInputStream())
+} else {
+    throw new GradleException("Could not find config.properties or cannot readable!")
+}
+
+
+def increaseVersionCode() {
+    def configFile = project.rootProject.file("config.properties")
+    if (configFile.exists() && configFile.canRead()) {
+        Properties properties = new Properties()
+        properties.load(new FileInputStream(configFile))
+        def versionCode = properties.getProperty("config.versionCode") as Integer
+        def runTasks = gradle.startParameter.taskNames
+        def realTask = ":master:assembleRelease"
+        if (realTask in runTasks) {
+            versionCode += 1
+            project.logger.error("realTask: ${realTask}, versionCode: ${versionCode}")
+            properties['config.versionCode'] = versionCode.toString()
+            properties.store(configFile.newWriter(), null)
+        }
+        return versionCode
+    } else {
+        throw new GradleException("Could not find config.properties or cannot readable!")
+    }
+}
+
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
     defaultConfig {
-        applicationId "com.nathaniel.refreshlayout"
+        applicationId "${properties.getProperty("config.applicationId")}"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode increaseVersionCode() as Integer
+        versionName "${properties.getProperty("config.versionName")}"
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+//    signingConfigs {
+//        release {
+//            keyAlias properties.getProperty("config.keyAlias")
+//            keyPassword properties.getProperty("config.keyPassword")
+//            storeFile file(properties.getProperty("config.storeFile"))
+//            storePassword properties.getProperty("config.storePassword")
+//        }
+//    }
 
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
@@ -26,6 +59,39 @@ android {
     viewBinding {
         enabled = true
     }
+
+//    buildTypes {
+//        debug {
+//            debuggable true
+//            minifyEnabled true
+//            useProguard true
+//            shrinkResources false
+//            crunchPngs false
+//            zipAlignEnabled false
+//            jniDebuggable false
+//            signingConfig signingConfigs.release
+//            proguardFiles.add(file('proguard-rules.pro'))
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            buildConfigField "String", "applicationId", "\"${properties.getProperty("config.applicationId")}\""
+//            buildConfigField "Boolean", "debuggable", "${properties.getProperty("config.debuggable")}"
+//            buildConfigField "String", "fileProviderName", "\"${properties.getProperty("config.fileProvider")}\""
+//        }
+//        release {
+//            debuggable false
+//            minifyEnabled true
+//            useProguard true
+//            shrinkResources false
+//            crunchPngs false
+//            zipAlignEnabled false
+//            jniDebuggable false
+//            signingConfig signingConfigs.release
+//            proguardFiles.add(file('proguard-rules.pro'))
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            buildConfigField "String", "applicationId", "\"${properties.getProperty("config.applicationId")}\""
+//            buildConfigField "Boolean", "debuggable", "${properties.getProperty("config.debuggable")}"
+//            buildConfigField "String", "fileProviderName", "\"${properties.getProperty("config.fileProvider")}\""
+//        }
+//    }
 }
 
 dependencies {

@@ -806,17 +806,6 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
         }
 
         markPro(menu.findItem(R.id.menu_log), ActivityPro.SKU_LOG);
-        if (!IAB.isPurchasedAny(this))
-            markPro(menu.findItem(R.id.menu_pro), null);
-
-        if (!Util.hasValidFingerprint(this) || getIntentInvite(this).resolveActivity(pm) == null)
-            menu.removeItem(R.id.menu_invite);
-
-        if (getIntentSupport().resolveActivity(getPackageManager()) == null)
-            menu.removeItem(R.id.menu_support);
-
-        menu.findItem(R.id.menu_apps).setEnabled(getIntentApps(this).resolveActivity(pm) != null);
-
         return true;
     }
 
@@ -846,12 +835,6 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
         menu.findItem(R.id.menu_app_nointernet).setChecked(prefs.getBoolean("show_nointernet", true));
         menu.findItem(R.id.menu_app_disabled).setChecked(prefs.getBoolean("show_disabled", true));
 
-        String sort = prefs.getString("sort", "name");
-        if ("uid".equals(sort))
-            menu.findItem(R.id.menu_sort_uid).setChecked(true);
-        else
-            menu.findItem(R.id.menu_sort_name).setChecked(true);
-
         menu.findItem(R.id.menu_lockdown).setChecked(prefs.getBoolean("lockdown", false));
 
         return super.onPrepareOptionsMenu(menu);
@@ -880,14 +863,6 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
             item.setChecked(!item.isChecked());
             prefs.edit().putBoolean("show_disabled", item.isChecked()).apply();
             return true;
-        } else if (itemId == R.id.menu_sort_name) {
-            item.setChecked(true);
-            prefs.edit().putString("sort", "name").apply();
-            return true;
-        } else if (itemId == R.id.menu_sort_uid) {
-            item.setChecked(true);
-            prefs.edit().putString("sort", "uid").apply();
-            return true;
         } else if (itemId == R.id.menu_lockdown) {
             menu_lockdown(item);
             return true;
@@ -903,23 +878,8 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
         } else if (itemId == R.id.menu_settings) {
             startActivity(new Intent(this, ActivitySettings.class));
             return true;
-        } else if (itemId == R.id.menu_pro) {
-            startActivity(new Intent(ActivityMain.this, ActivityPro.class));
-            return true;
-        } else if (itemId == R.id.menu_invite) {
-            startActivityForResult(getIntentInvite(this), REQUEST_INVITE);
-            return true;
         } else if (itemId == R.id.menu_legend) {
             menu_legend();
-            return true;
-        } else if (itemId == R.id.menu_support) {
-            startActivity(getIntentSupport());
-            return true;
-        } else if (itemId == R.id.menu_about) {
-            menu_about();
-            return true;
-        } else if (itemId == R.id.menu_apps) {
-            menu_apps();
             return true;
         }
         return super.onOptionsItemSelected(item);

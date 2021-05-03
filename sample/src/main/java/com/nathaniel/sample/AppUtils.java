@@ -59,10 +59,6 @@ public class AppUtils {
         return packageNames;
     }
 
-    private static boolean isSystemPackage(ResolveInfo resolveInfo) {
-        return ((resolveInfo.activityInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
-    }
-
     private static Drawable getAppIconByPackageName(Context context, String packageName) {
         Drawable drawable;
         try {
@@ -135,6 +131,7 @@ public class AppUtils {
     }
 
     public static List<PackageEntity> getPackageEntities(Context context) {
+        LoggerUtils.logger(TAG, TrafficStats.UNSUPPORTED == -1 ? "TrafficStats UNSUPPORTED" : "TrafficStats UNSUPPORTED");
         List<String[]> stringsList = getNetworkUsageAllUid();
         List<PackageEntity> packageEntities = new ArrayList<>();
         @SuppressLint("QueryPermissionsNeeded")
@@ -335,9 +332,9 @@ public class AppUtils {
         NetworkStatsManager networkStatsManager = (NetworkStatsManager) context.getSystemService(Context.NETWORK_STATS_SERVICE);
         try {
             bucket = networkStatsManager.querySummaryForDevice(ConnectivityManager.TYPE_MOBILE,
-                    getSubscriberId(context, ConnectivityManager.TYPE_MOBILE),
-                    startTime,
-                    System.currentTimeMillis());
+                getSubscriberId(context, ConnectivityManager.TYPE_MOBILE),
+                startTime,
+                System.currentTimeMillis());
         } catch (RemoteException e) {
             return -1;
         }

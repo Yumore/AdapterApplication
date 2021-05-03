@@ -35,4 +35,5 @@ dependencies {
     api 'androidx.constraintlayout:constraintlayout:2.0.4'
     api 'androidx.recyclerview:recyclerview:1.2.0'
     api "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+    api 'com.google.code.gson:gson:2.8.6'
 }

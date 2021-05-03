@@ -4,6 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.google.gson.Gson;
+
 /**
  * @author Nathaniel
  * @date 2018/5/29-10:17
@@ -17,6 +19,11 @@ public final class LoggerUtils {
 
     public static void logger(@NonNull String tag, String message) {
         logger(tag, Level.ERROR, message);
+    }
+
+    public static <T> void logger(@NonNull String tag, T t) {
+        final Gson gson = new Gson();
+        logger(tag, Level.ERROR, gson.toJson(t));
     }
 
     public static void logger(@NonNull String tag, @NonNull Level level, String message) {

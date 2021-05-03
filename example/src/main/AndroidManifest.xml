@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.yecy.settingapi"
+    android:sharedUserId="android.uid.system">
+
+    <!-- 获取应用耗电量信息 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.DEVICE_POWER" />
+    <uses-permission android:name="android.permission.BATTERY_STATS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+
+    <application>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".PowerUsageActivity" />
+        <activity android:name=".DataUsageActivity" />
+    </application>
+
+</manifest>

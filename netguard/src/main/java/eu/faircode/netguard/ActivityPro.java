@@ -33,9 +33,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -46,7 +43,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NavUtils;
 
 import static android.content.ClipDescription.MIMETYPE_TEXT_PLAIN;
 
@@ -243,34 +239,6 @@ public class ActivityPro extends AppCompatActivity {
         super.onDestroy();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.pro, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == android.R.id.home) {
-            Log.i(TAG, "Up");
-            NavUtils.navigateUpFromSameTask(this);
-            return true;
-        } else if (itemId == R.id.menu_challenge) {
-            menu_challenge();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        if (IAB.isPurchased(SKU_DONATION, this) || Util.isPlayStoreInstall(this))
-            menu.removeItem(R.id.menu_challenge);
-
-        return super.onPrepareOptionsMenu(menu);
-    }
 
     private void menu_challenge() {
         LayoutInflater inflater = LayoutInflater.from(this);

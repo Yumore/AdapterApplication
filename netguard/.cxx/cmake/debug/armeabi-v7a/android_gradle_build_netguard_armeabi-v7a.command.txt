@@ -1,0 +1,7 @@
+Executable : F:\AndroidSDK\cmake\3.10.2.4988404\bin\ninja.exe
+arguments : 
+-C
+E:\AndroidStudio\AdapterApplication\netguard\.cxx\cmake\debug\armeabi-v7a
+netguard
+jvmArgs : 
+

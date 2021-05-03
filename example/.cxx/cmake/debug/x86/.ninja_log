@@ -1,0 +1,3 @@
+# ninja log v5
+0	619	641729670	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	7bb34eec4b801bab
+621	1203	641729670	../../../../build/intermediates/cmake/debug/obj/x86/libnative-lib.so	36ac652eb863cc94

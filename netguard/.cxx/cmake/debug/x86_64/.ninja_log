@@ -1,0 +1,12 @@
+# ninja log v5
+50	454	641729671	CMakeFiles/netguard.dir/src/main/jni/netguard/session.c.o	9a8c9b6260397bc0
+87	458	641729671	CMakeFiles/netguard.dir/src/main/jni/netguard/ip.c.o	5af86d9ead78b88d
+126	459	641729671	CMakeFiles/netguard.dir/src/main/jni/netguard/tcp.c.o	ebb19dae74e5c63c
+168	460	641729671	CMakeFiles/netguard.dir/src/main/jni/netguard/icmp.c.o	6d8f2f65f5560f0c
+214	466	641729671	CMakeFiles/netguard.dir/src/main/jni/netguard/udp.c.o	170acdacda0ce88
+260	486	641729671	CMakeFiles/netguard.dir/src/main/jni/netguard/util.c.o	b20b4cab219e59f
+307	507	641729671	CMakeFiles/netguard.dir/src/main/jni/netguard/pcap.c.o	be819c72e713ee6d
+0	547	641729671	CMakeFiles/netguard.dir/src/main/jni/netguard/netguard.c.o	5cac057b852d4760
+354	556	641729671	CMakeFiles/netguard.dir/src/main/jni/netguard/dns.c.o	9c7ee403d565296f
+403	579	641729671	CMakeFiles/netguard.dir/src/main/jni/netguard/dhcp.c.o	951358fdeede3350
+579	734	641729671	../../../../build/intermediates/cmake/debug/obj/x86_64/libnetguard.so	841484e312eeb17f

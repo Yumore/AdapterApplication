@@ -1,0 +1,89 @@
+{
+  "stringTable": {
+    "0": "E:/AndroidStudio/AdapterApplication/netguard/.cxx/cmake/debug/armeabi-v7a",
+    "1": "--target=armv7-none-linux-androideabi22 --gcc-toolchain=F:/AndroidSDK/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=F:/AndroidSDK/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dnetguard_EXPORTS -I../../../../src/main/jni/netguard -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security -O0 -fno-limit-debug-info -fPIC"
+  },
+  "buildFiles": [
+    "E:\\AndroidStudio\\AdapterApplication\\netguard\\CMakeLists.txt",
+    "F:\\AndroidSDK\\ndk-bundle\\build\\cmake\\android.toolchain.cmake",
+    "F:\\AndroidSDK\\ndk-bundle\\build\\cmake\\platforms.cmake",
+    "F:\\AndroidSDK\\ndk-bundle\\build\\cmake\\compiler_id.cmake"
+  ],
+  "cleanCommands": [
+    "F:\\AndroidSDK\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"E:\\AndroidStudio\\AdapterApplication\\netguard\\.cxx\\cmake\\debug\\armeabi-v7a\" clean"
+  ],
+  "buildTargetsCommand": "F:\\AndroidSDK\\cmake\\3.10.2.4988404\\bin\\ninja.exe  -C \"E:\\AndroidStudio\\AdapterApplication\\netguard\\.cxx\\cmake\\debug\\armeabi-v7a\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "netguard-Debug-armeabi-v7a": {
+      "buildCommand": "F:\\AndroidSDK\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"E:\\AndroidStudio\\AdapterApplication\\netguard\\.cxx\\cmake\\debug\\armeabi-v7a\" netguard",
+      "buildType": "debug",
+      "toolchain": "2110740458",
+      "abi": "armeabi-v7a",
+      "artifactName": "netguard",
+      "files": [
+        {
+          "src": "E:\\AndroidStudio\\AdapterApplication\\netguard\\src\\main\\jni\\netguard\\netguard.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "E:\\AndroidStudio\\AdapterApplication\\netguard\\src\\main\\jni\\netguard\\session.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "E:\\AndroidStudio\\AdapterApplication\\netguard\\src\\main\\jni\\netguard\\ip.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "E:\\AndroidStudio\\AdapterApplication\\netguard\\src\\main\\jni\\netguard\\tcp.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "E:\\AndroidStudio\\AdapterApplication\\netguard\\src\\main\\jni\\netguard\\udp.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "E:\\AndroidStudio\\AdapterApplication\\netguard\\src\\main\\jni\\netguard\\icmp.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "E:\\AndroidStudio\\AdapterApplication\\netguard\\src\\main\\jni\\netguard\\dns.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "E:\\AndroidStudio\\AdapterApplication\\netguard\\src\\main\\jni\\netguard\\dhcp.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "E:\\AndroidStudio\\AdapterApplication\\netguard\\src\\main\\jni\\netguard\\pcap.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "E:\\AndroidStudio\\AdapterApplication\\netguard\\src\\main\\jni\\netguard\\util.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        }
+      ],
+      "headers": [],
+      "output": "E:\\AndroidStudio\\AdapterApplication\\netguard\\build\\intermediates\\cmake\\debug\\obj\\armeabi-v7a\\libnetguard.so",
+      "runtimeFiles": []
+    }
+  },
+  "toolchains": {
+    "2110740458": {
+      "cCompilerExecutable": "F:\\AndroidSDK\\ndk-bundle\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe"
+    }
+  },
+  "cFileExtensions": [
+    "c"
+  ],
+  "cppFileExtensions": []
+}

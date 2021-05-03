@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class ExampleActivity extends AppCompatActivity {
 
     // Used to load the 'native-lib' library on application startup.
     static {
@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_example);
 
         // Example of a call to a native method
         TextView tv = (TextView) findViewById(R.id.sample_text);

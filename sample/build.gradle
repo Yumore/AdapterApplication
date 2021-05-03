@@ -100,6 +100,7 @@ dependencies {
     implementation project(':startup')
     implementation project(':baseui')
     implementation project(':netguard')
+    implementation project(':example')
 
     implementation "androidx.multidex:multidex:2.0.1"
 }

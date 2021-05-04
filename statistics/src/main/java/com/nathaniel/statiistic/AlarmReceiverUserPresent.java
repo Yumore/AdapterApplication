@@ -11,6 +11,6 @@ import android.content.Intent;
 public class AlarmReceiverUserPresent extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        context.startService(new Intent(context, AlarmTimingStart.class));
+        context.startService(new Intent(context, AlarmTimingService.class));
     }
 }

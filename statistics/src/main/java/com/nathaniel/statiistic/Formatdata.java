@@ -14,18 +14,18 @@ import static com.nathaniel.statiistic.StatisticsActivity.TAG;
 
 class Formatdata {
 
-    float longtolong(long data) {
+    float long2long(long data) {
 
         double bytes = data / 1024.0;
         return (float) (bytes / 1024.0);
     }
 
-    float longtofloat(long data) {
+    float long2float(long data) {
         double bytes = data / 1024.0;
         return (float) (bytes / 1024.0);
     }
 
-    String longtostring(long data) {
+    String long2string(long data) {
         DecimalFormat df = new DecimalFormat("#.##");
         double bytes = data / 1024.0;
         String result = "";
@@ -40,11 +40,11 @@ class Formatdata {
         return result;
     }
 
-    long GetNumFromString(String data) {
-        String reg = "\\d+\\.?\\d*";
+    long getNumFromString(String data) {
+        String regex = "\\d+\\.?\\d*";
         String result_match = "";
-        Pattern reg_data = Pattern.compile(reg);
-        Matcher matcher = reg_data.matcher(data);
+        Pattern regData = Pattern.compile(regex);
+        Matcher matcher = regData.matcher(data);
         if (matcher.find()) {
             result_match = matcher.group(0);
         }
@@ -53,7 +53,7 @@ class Formatdata {
 
         long result;
         double num = Double.parseDouble(result_match);
-        String last = GetLastFromString(data);
+        String last = getLastFromString(data);
         switch (last) {
             case "k":
                 result = (long) (num * 1024);
@@ -68,11 +68,11 @@ class Formatdata {
         return result;
     }
 
-    private String GetLastFromString(String data) {
-        String reg = "[MGk]";
+    private String getLastFromString(String data) {
+        String regex = "[MGk]";
         String result = "";
-        Pattern reg_data = Pattern.compile(reg);
-        Matcher matcher = reg_data.matcher(data);
+        Pattern regData = Pattern.compile(regex);
+        Matcher matcher = regData.matcher(data);
         if (matcher.find()) {
             result = matcher.group(0);
         }

@@ -11,10 +11,11 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 /**
- * Created by small on 2016/9/30.
+ * @author small
+ * @date 2016/9/30
  */
 
-public class AlarmTimingStart extends Service {
+public class AlarmTimingService extends Service {
 
     @Override
     public void onCreate() {
@@ -32,9 +33,11 @@ public class AlarmTimingStart extends Service {
         Log.d("qiang", "AlarmTimingStart已启动");
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent intent1 = new Intent(this, AlarmReceiverTiming.class); //触发广播，广播回调此方法，实现循环
+        //触发广播，广播回调此方法，实现循环
+        Intent intent1 = new Intent(this, AlarmTimingReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
-        long triggerTime = SystemClock.elapsedRealtime() + 3 * 60 * 1000; //每隔--秒触发一次
+        //每隔--秒触发一次
+        long triggerTime = SystemClock.elapsedRealtime() + 3 * 60 * 1000;
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerTime, pendingIntent);
         Log.d("qiang", "快速广播已发");
 

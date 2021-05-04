@@ -57,9 +57,10 @@ import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.view.LineChartView;
 
-import static android.media.AudioManager.RINGER_MODE_SILENT;
-import static android.media.AudioManager.STREAM_RING;
 
+/**
+ * @author Nathaniel
+ */
 public class StatisticsActivity extends AppCompatActivity implements View.OnClickListener, SMSBroadcastReceiver.Interaction {
     private static final int REQUEST_CODE = 1;
     static String TAG = "qiang";
@@ -92,9 +93,11 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
     private int volumn = 0;
     private ProgressDialog progressDialog;
 
-    /* 检查手机是否是xiaomi
-     * @ref http://dev.xiaomi.com/doc/p=254/index.html
-     * @return
+    /**
+     * 检查手机是否是xiaomi
+     *
+     * @return true/false
+     * @href http://dev.xiaomi.com/doc/p=254/index.html
      */
     public static boolean isMIUI() {
         String device = Build.MANUFACTURER;
@@ -119,18 +122,13 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
         if (mark) {
             // 只兼容miui v5/v6 的应用权限设置页面，否则的话跳转应用设置页面（权限设置上一级页面）
             try {
-                Intent localIntent = new Intent(
-                    "miui.intent.action.APP_PERM_EDITOR");
-                localIntent
-                    .setClassName("com.miui.securitycenter",
-                        "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
+                Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+                localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
                 localIntent.putExtra("extra_pkgname", context.getPackageName());
                 context.startActivity(localIntent);
             } catch (ActivityNotFoundException e) {
-                Intent intent = new Intent(
-                    Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                Uri uri = Uri.fromParts("package", context.getPackageName(),
-                    null);
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                Uri uri = Uri.fromParts("package", context.getPackageName(), null);
                 intent.setData(uri);
                 context.startActivity(intent);
             }
@@ -154,21 +152,21 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
         //本月可用流量(含闲时)=总流量 本月还剩流量(含闲时)=总流量去掉不可用后剩余的 本月还剩流量(不含闲时)=本月还剩流量(含闲时)-闲时流量
 
         if (pref_default.getBoolean("free", false)) {
-            long allfreetimeflow = new Formatdata().GetNumFromString(pref_default.getString("freeflow", "0") + "M");
-            textstr = "本月可用流量(含闲时)：" + new Formatdata().longtostring(remain_liuliang)
-                + "\n本月已用流量(含闲时)：" + new Formatdata().longtostring(curmonthflow)
-                + "\n本月还剩流量(含闲时)：" + ((pref.getBoolean("sent", false)) ? new Formatdata().longtostring(remain_liuliang - curmonthflow - curdayflow) : "0K")
-                + "\n本月可用闲时流量：" + new Formatdata().longtostring(allfreetimeflow)
-                + "\n今日闲时使用流量：" + new Formatdata().longtostring(curfreetimeflow)
-                + "\n本月还剩流量(不含闲时)：" + new Formatdata().longtostring(remain_liuliang - curmonthflow - curdayflow - allfreetimeflow)
-                + "\n今日使用流量(不含闲时)：" + new Formatdata().longtostring(curdayflow - curfreebehind - curfreefront)
-                + "\n上个月使用流量：" + new Formatdata().longtostring(lastmonthflow);
+            long allfreetimeflow = new Formatdata().getNumFromString(pref_default.getString("freeflow", "0") + "M");
+            textstr = "本月可用流量(含闲时)：" + new Formatdata().long2string(remain_liuliang)
+                + "\n本月已用流量(含闲时)：" + new Formatdata().long2string(curmonthflow)
+                + "\n本月还剩流量(含闲时)：" + ((pref.getBoolean("sent", false)) ? new Formatdata().long2string(remain_liuliang - curmonthflow - curdayflow) : "0K")
+                + "\n本月可用闲时流量：" + new Formatdata().long2string(allfreetimeflow)
+                + "\n今日闲时使用流量：" + new Formatdata().long2string(curfreetimeflow)
+                + "\n本月还剩流量(不含闲时)：" + new Formatdata().long2string(remain_liuliang - curmonthflow - curdayflow - allfreetimeflow)
+                + "\n今日使用流量(不含闲时)：" + new Formatdata().long2string(curdayflow - curfreebehind - curfreefront)
+                + "\n上个月使用流量：" + new Formatdata().long2string(lastmonthflow);
         } else {
-            textstr = "本月可用流量：" + new Formatdata().longtostring(all_liuliang)
-                + "\n本月已用流量：" + new Formatdata().longtostring(curmonthflow)
-                + "\n本月还剩流量：" + ((pref.getBoolean("sent", false)) ? new Formatdata().longtostring(remain_liuliang - curmonthflow - curdayflow) : "0K")
-                + "\n今日使用流量：" + new Formatdata().longtostring(curdayflow)
-                + "\n上个月使用流量：" + new Formatdata().longtostring(lastmonthflow);
+            textstr = "本月可用流量：" + new Formatdata().long2string(all_liuliang)
+                + "\n本月已用流量：" + new Formatdata().long2string(curmonthflow)
+                + "\n本月还剩流量：" + ((pref.getBoolean("sent", false)) ? new Formatdata().long2string(remain_liuliang - curmonthflow - curdayflow) : "0K")
+                + "\n今日使用流量：" + new Formatdata().long2string(curdayflow)
+                + "\n上个月使用流量：" + new Formatdata().long2string(lastmonthflow);
         }
         textView = (TextView) findViewById(R.id.main);
         textView.setText(textstr);
@@ -204,22 +202,19 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
             editor.putLong("curmonthfreeflow", 0);//当月使用闲时流量
             editor.putBoolean("isreboot", false);//是否重启过
             editor.commit();
-            startService(new Intent(this, AlarmTimingStart.class));
-            startService(new Intent(this, AlarmFreeStart.class));
-            startService(new Intent(this, AlarmManualStart.class));
+            startService(new Intent(this, AlarmTimingService.class));
+            startService(new Intent(this, AlarmFreeService.class));
+            startService(new Intent(this, AlarmManualService.class));
             startActivity(new Intent(StatisticsActivity.this, SettingActivity.class));
             if (pref_default.getBoolean("isfirstrun", true)) {
                 String tips_string = "请点击右下角按钮从运营商查询流量信息";
                 AlertDialog.Builder tips = new AlertDialog.Builder(this);
                 tips.setMessage(tips_string)
                     .setTitle("小提示")
-                    .setPositiveButton("好的", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            editor.putBoolean("isfirstrun", false);
-                            editor.commit();
+                    .setPositiveButton("好的", (dialog, which) -> {
+                        editor.putBoolean("isfirstrun", false);
+                        editor.commit();
 
-                        }
                     });
                 tips.show();
             }
@@ -240,7 +235,7 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
             public void onValueDeselected() {
             }
         });
-        AddLineChartDate(0);//本月
+        addLineChartDate(0);//本月
         /*
         <Button
             android:padding="10dp"
@@ -256,18 +251,15 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
         eachmonth.setOnClickListener(this);
     }
 
-    private void AddLineChartDate(int type) {
-
+    private void addLineChartDate(int type) {
         Calendar calendar = Calendar.getInstance();
         int curday = calendar.get(Calendar.DAY_OF_MONTH);
-
         int numberOfPoints;
         ArrayList<AxisValue> axisValuesY = new ArrayList<AxisValue>();
         ArrayList<AxisValue> axisValuesX = new ArrayList<AxisValue>();
         List<Line> lines = new ArrayList<Line>();
-        Axis axisY = new Axis();//Y轴属性
-        Axis axisX = new Axis();//X轴属性
-
+        Axis axisY = new Axis();
+        Axis axisX = new Axis();
         if (type == 0) {
             numberOfPoints = LineChartEachMonthNums;
         } else {
@@ -284,19 +276,19 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
                 Log.d("MainActivity", "curday:" + curday);
                 while (j < numberOfPoints) {
                     j++;
-                    float yvalue;
+                    float yValue;
                     if (j == curday) {
                         long cur_boot_mobiletx = TrafficStats.getMobileTxBytes();
                         long cur_boot_mobilerx = TrafficStats.getMobileRxBytes();
-                        long thisbootflow = cur_boot_mobilerx + cur_boot_mobiletx;//4
-                        //yvalue = (float)(new CalculateTodayFlow().calculate(this));
-                        yvalue = (new Formatdata().longtofloat(thisbootflow));
-                        Log.d("MainActivity", "yvalue:" + yvalue);
+                        long thisbootflow = cur_boot_mobilerx + cur_boot_mobiletx;
+                        //yValue = (float)(new CalculateTodayFlow().calculate(this));
+                        yValue = (new Formatdata().long2float(thisbootflow));
+                        Log.d("MainActivity", "yValue:" + yValue);
                     } else {
-                        yvalue = new Formatdata().longtofloat(pref.getLong(j + "day", 0));
+                        yValue = new Formatdata().long2float(pref.getLong(j + "day", 0));
                     }
-                    values.add(new PointValue(j, yvalue));
-                    Log.d(TAG, "pointvalue:" + (j) + "," + yvalue);
+                    values.add(new PointValue(j, yValue));
+                    Log.d(TAG, "pointvalue:" + (j) + "," + yValue);
                     //axisValuesY.add(new AxisValue(j * 10 * (i + 1)).setLabel(j + ""));//添加Y轴显示的刻度值
                     axisValuesX.add(new AxisValue(j).setLabel(j + "日"));//添加X轴显示的刻度值
                 }
@@ -385,7 +377,7 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.eachmonth) {
-            AddLineChartDate(0);//本月
+            addLineChartDate(0);//本月
             //prepareDataAnimation(0);
             //lineChart.startDataAnimation();
                 /*
@@ -407,7 +399,7 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
             }
             if (activeInfo.isConnected()) {
                 if (Objects.equals(activeInfo.getTypeName(), "MOBILE")) {
-                    Sendmessage sendmessage = new Sendmessage();//发送短信
+                    SendMessage sendmessage = new SendMessage();//发送短信
                     if (Build.VERSION.SDK_INT >= 23) {
                         int checkCallPhonePermission = ContextCompat.checkSelfPermission(StatisticsActivity.this, Manifest.permission.RECEIVE_SMS);
                         if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
@@ -417,7 +409,7 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
                             progressDialog.setMessage(getString(R.string.inquery));
                             progressDialog.setCancelable(true);
                             progressDialog.show();
-                            sendmessage.Sendmessages();
+                            sendmessage.sendMessages();
                             //静音
                             sendmessage.silent();
                             Snackbar.make(v, getString(R.string.sent), Snackbar.LENGTH_LONG).setAction("", null).show();
@@ -428,7 +420,7 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
                         progressDialog.setMessage(getString(R.string.inquery));
                         progressDialog.setCancelable(true);
                         progressDialog.show();
-                        sendmessage.Sendmessages();
+                        sendmessage.sendMessages();
                         //静音
                         sendmessage.silent();
                         Snackbar.make(v, getString(R.string.sent), Snackbar.LENGTH_SHORT).setAction("", null).show();
@@ -460,8 +452,8 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
                     progressDialog.setMessage(getString(R.string.inquery));
                     progressDialog.setCancelable(true);
                     progressDialog.show();
-                    Sendmessage sendmessage = new Sendmessage();
-                    sendmessage.Sendmessages();
+                    SendMessage sendmessage = new SendMessage();
+                    sendmessage.sendMessages();
                     //静音
                     sendmessage.silent();
                     Log.d("qiang", "发送成功");
@@ -539,8 +531,8 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
         if (content[1] != null && content[0] != null) {
             progressDialog.dismiss();
             editor.putLong("curmonthflow", 0);
-            editor.putLong("remain_liuliang", new Formatdata().GetNumFromString(content[0]));
-            editor.putLong("all_liuliang", new Formatdata().GetNumFromString(content[1]));
+            editor.putLong("remain_liuliang", new Formatdata().getNumFromString(content[0]));
+            editor.putLong("all_liuliang", new Formatdata().getNumFromString(content[1]));
             editor.putBoolean("sent", true);
             editor.commit();
 
@@ -561,15 +553,15 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
 
         String textstr;
         if (pref_default.getBoolean("free", false)) {
-            long allfreetimeflow = new Formatdata().GetNumFromString(pref_default.getString("freeflow", "0") + "M");
-            textstr = "本月可用流量（含闲时）：" + new Formatdata().longtostring(all_liuliang) + "\n本月可用闲时流量：" + new Formatdata().longtostring(allfreetimeflow)
-                + "\n本月已用流量：" + new Formatdata().longtostring(all_liuliang - remain_liuliang)
-                + "\n本月还剩流量：" + new Formatdata().longtostring(remain_liuliang) + "\n上个月使用流量：" + new Formatdata().longtostring(lastmonthflow)
-                + "\n今日使用流量(不含闲时)：" + new Formatdata().longtostring(curdayflow - curfreebehind - curfreefront) + "\n今日闲时使用流量：" + new Formatdata().longtostring(curfreetimeflow);
+            long allfreetimeflow = new Formatdata().getNumFromString(pref_default.getString("freeflow", "0") + "M");
+            textstr = "本月可用流量（含闲时）：" + new Formatdata().long2string(all_liuliang) + "\n本月可用闲时流量：" + new Formatdata().long2string(allfreetimeflow)
+                + "\n本月已用流量：" + new Formatdata().long2string(all_liuliang - remain_liuliang)
+                + "\n本月还剩流量：" + new Formatdata().long2string(remain_liuliang) + "\n上个月使用流量：" + new Formatdata().long2string(lastmonthflow)
+                + "\n今日使用流量(不含闲时)：" + new Formatdata().long2string(curdayflow - curfreebehind - curfreefront) + "\n今日闲时使用流量：" + new Formatdata().long2string(curfreetimeflow);
         } else {
-            textstr = "本月可用流量：" + new Formatdata().longtostring(all_liuliang) + "\n本月已用流量：" + new Formatdata().longtostring(all_liuliang - remain_liuliang)
-                + "\n本月还剩流量：" + new Formatdata().longtostring(remain_liuliang) + "\n上个月使用流量：" + new Formatdata().longtostring(lastmonthflow)
-                + "\n今日使用流量：" + new Formatdata().longtostring(curdayflow);
+            textstr = "本月可用流量：" + new Formatdata().long2string(all_liuliang) + "\n本月已用流量：" + new Formatdata().long2string(all_liuliang - remain_liuliang)
+                + "\n本月还剩流量：" + new Formatdata().long2string(remain_liuliang) + "\n上个月使用流量：" + new Formatdata().long2string(lastmonthflow)
+                + "\n今日使用流量：" + new Formatdata().long2string(curdayflow);
         }
         textView.setText(textstr);
     }
@@ -595,8 +587,8 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    public class Sendmessage {
-        void Sendmessages() {
+    public class SendMessage {
+        void sendMessages() {
             SmsManager manager = SmsManager.getDefault();
             manager.sendTextMessage(getString(R.string.phone), null, getString(R.string.message_search), null, null);  //发送短信
             Log.d("qiang", "发送短信中");
@@ -610,9 +602,9 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
             } else {
                 audio = (AudioManager) getSystemService(AUDIO_SERVICE);
                 mode = audio.getRingerMode();
-                volumn = audio.getStreamVolume(STREAM_RING);
-                audio.setStreamVolume(STREAM_RING, 0, 0);
-                audio.setRingerMode(RINGER_MODE_SILENT);
+                volumn = audio.getStreamVolume(AudioManager.STREAM_RING);
+                audio.setStreamVolume(AudioManager.STREAM_RING, 0, 0);
+                audio.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                 //audio.setRingerMode(RINGER_MODE_SILENT);
                 //Log.d("qiang", "old_mode:" + volumn);
                 //Log.d("qiang", "old_volumn:" + volumn);

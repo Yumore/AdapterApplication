@@ -48,8 +48,7 @@ public class SettingActivity extends PreferenceActivity implements SharedPrefere
     private SwitchPreference alertSwitchPreference;
 
     private void initPreferences() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
+        SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         CheckEditTextPreference = (EditTextPreference) findPreference("check");
         ShowNotificationSwitchPreference = (SwitchPreference) findPreference("ShowNotification");
         AutomaticCheckSwitchPreference = (SwitchPreference) findPreference("AutomaticCheck");
@@ -58,19 +57,19 @@ public class SettingActivity extends PreferenceActivity implements SharedPrefere
 
         freeSwitchPreference = (SwitchPreference) findPreference("free");
         freeEditTextPreference = (EditTextPreference) findPreference("freeflow");
-        freeEditTextPreference.setSummary(sharedPreferences.getString("freeflow", "0"));
-        if (!sharedPreferences.getBoolean("free", false)) {
+        freeEditTextPreference.setSummary(defaultSharedPreferences.getString("freeflow", "0"));
+        if (!defaultSharedPreferences.getBoolean("free", false)) {
             ((PreferenceCategory) findPreference("checkcategory")).removePreference(findPreference("freeflow"));
         }
         alertSwitchPreference = (SwitchPreference) findPreference("alert");
         alertsflowEditTextPreference = (EditTextPreference) findPreference("alertsflow");
-        alertsflowEditTextPreference.setSummary(sharedPreferences.getString("alertsflow", "0"));
-        if (!sharedPreferences.getBoolean("alerts", false)) {
+        alertsflowEditTextPreference.setSummary(defaultSharedPreferences.getString("alertsflow", "0"));
+        if (!defaultSharedPreferences.getBoolean("alerts", false)) {
             ((PreferenceCategory) findPreference("alertscategory")).removePreference(findPreference("alertsflow"));
         }
         // blankEditTextPreference=(EditTextPreference)findPreference("blank");
-        //CheckEditTextPreference.setSummary(sharedPreferences.getString("check", "0"));
-        RemonthListPreference.setSummary(sharedPreferences.getString("remonth", "0"));
+        //CheckEditTextPreference.setSummary(defaultSharedPreferences.getString("check", "0"));
+        RemonthListPreference.setSummary(defaultSharedPreferences.getString("remonth", "0"));
 
     }
 
@@ -129,7 +128,7 @@ public class SettingActivity extends PreferenceActivity implements SharedPrefere
                 Snackbar.make(root, "更改已保存", Snackbar.LENGTH_SHORT)
                     .show();
                 if (pref_default.getBoolean("ShowNotification", true)) {
-                    Intent intent2 = new Intent(this, AlarmManualStart.class);
+                    Intent intent2 = new Intent(this, AlarmManualService.class);
                     startService(intent2);
                 }
                 break;
@@ -179,7 +178,7 @@ public class SettingActivity extends PreferenceActivity implements SharedPrefere
                     if (Objects.equals(remain_liuliang, "") | Objects.equals(all_liuliang, "")) {
                         notification_string = "无流量数据，请启动应用查询";
                     } else {
-                        notification_string = "本月流量还剩 " + new Formatdata().longtostring(remain_liuliang - curmonthflow - curdayflow) + " 今日已用" + new Formatdata().longtostring(curdayflow);
+                        notification_string = "本月流量还剩 " + new Formatdata().long2string(remain_liuliang - curmonthflow - curdayflow) + " 今日已用" + new Formatdata().long2string(curdayflow);
                     }
                     Notification.Builder builder = new Notification.Builder(this);
                     builder.setSmallIcon(R.mipmap.ic_album_black_24dp)
@@ -198,7 +197,7 @@ public class SettingActivity extends PreferenceActivity implements SharedPrefere
                 Snackbar.make(root, "更改已保存", Snackbar.LENGTH_SHORT)
                     .show();
                 if (pref_default.getBoolean("free", false)) {
-                    startService(new Intent(this, AlarmFreeStart.class));
+                    startService(new Intent(this, AlarmFreeService.class));
                     ((PreferenceCategory) findPreference("checkcategory")).addPreference(freeEditTextPreference);
                     freeEditTextPreference.setSelectable(true);
                     freeEditTextPreference.setSummary(pref_default.getString("freeflow", "0"));

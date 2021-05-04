@@ -1,5 +1,6 @@
 package com.nathaniel.statiistic;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -8,7 +9,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +17,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -28,11 +30,14 @@ import com.nathaniel.statistics.R;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Nathaniel
+ */
 public class AboutActivity extends AppCompatActivity {
 
-    public SharedPreferences pref_default;
+    public SharedPreferences defaultPreferences;
     public SharedPreferences.Editor editor;
-    public SharedPreferences pref;
+    public SharedPreferences sharedPreferences;
     private Toolbar toolbar;
     private ListView listviewOpensource;
     private ListView listviewUpdatelog;
@@ -56,53 +61,40 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     protected void initData() {
-        mdata = new ArrayList<String>();
+        mdata = new ArrayList<>();
         for (int i = 'A'; i < 'z'; i++) {
-            //mdata.add("" + (char) i);
-            mdata.add("");
+            mdata.add(String.valueOf((char) i));
         }
     }
 
+    @SuppressLint("CommitPrefEdits")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         initData();
-        pref_default = PreferenceManager.getDefaultSharedPreferences(this);
-        editor = getSharedPreferences("data", Context.MODE_PRIVATE).edit();
-        pref = getSharedPreferences("data", MODE_PRIVATE);
+        defaultPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
         Button icon = (Button) findViewById(R.id.icon_about);
-        icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo mobileInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-                NetworkInfo wifiInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-                NetworkInfo activeInfo = manager.getActiveNetworkInfo();
-                Snackbar.make(getWindow().getDecorView(), myDevice() + ":" + activeInfo.getTypeName() + "", Snackbar.LENGTH_SHORT).show();
-
-                //Log.d("qiang","logtest1");
-                if (pref_default.getBoolean("log", false)) {
-                    //log
-                    AlertDialog.Builder alertDialogLog = new AlertDialog.Builder(AboutActivity.this);
-                    String logstr = new FileManager().readLogFile(AboutActivity.this, "log");
-                    alertDialogLog.setMessage(logstr);
-                    alertDialogLog.setMessage(logstr);
-                    alertDialogLog.setPositiveButton(getString(R.string.ok), null);
-                    alertDialogLog.show();
-
-                    Log.d("qiang", "logtest2");
-                }
-                //getWindow().getDecorView()
+        icon.setOnClickListener(v -> {
+            ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mobileInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+            NetworkInfo wifiInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            NetworkInfo activeInfo = manager.getActiveNetworkInfo();
+            Snackbar.make(getWindow().getDecorView(), myDevice() + ":" + activeInfo.getTypeName() + "", Snackbar.LENGTH_SHORT).show();
+            if (defaultPreferences.getBoolean("log", false)) {
+                AlertDialog.Builder alertDialogLog = new AlertDialog.Builder(AboutActivity.this);
+                String logger = new FileManager().readLogFile(AboutActivity.this, "log");
+                alertDialogLog.setMessage(logger);
+                alertDialogLog.setMessage(logger);
+                alertDialogLog.setPositiveButton(getString(R.string.ok), null);
+                alertDialogLog.show();
+                Log.d("qiang", "logtest2");
             }
         });
         /*
@@ -116,7 +108,7 @@ public class AboutActivity extends AppCompatActivity {
 
 */
         textViewCurVersion = (TextView) findViewById(R.id.curversion);
-        textViewCurVersion.setText("当前版本:" + getAPPVersion());
+        textViewCurVersion.setText("当前版本:" + getAppVersion(getApplicationContext()));
 
         //recyclerview = (RecyclerView) findViewById(R.id.recyclerview);
 //        recyclerview.setLayoutManager(new GridLayoutManager(this, 3));
@@ -128,36 +120,29 @@ public class AboutActivity extends AppCompatActivity {
 
     }
 
-    private String getAPPVersion() {
+    private String getAppVersion(Context context) {
         PackageManager manager;
-        PackageInfo info = null;
-        manager = this.getPackageManager();
+        PackageInfo packageInfo = null;
+        manager = context.getPackageManager();
         try {
-            info = manager.getPackageInfo(this.getPackageName(), 0);
+            packageInfo = manager.getPackageInfo(this.getPackageName(), 0);
         } catch (PackageManager.NameNotFoundException e) {
-// TODO Auto-generated catch block
             e.printStackTrace();
         }
-        assert info != null;
-        return info.versionName;
-
+        assert packageInfo != null;
+        return packageInfo.versionName;
     }
 
-    class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyViewHolder> {
+    class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder> {
+        @NonNull
         @Override
-        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            MyViewHolder holder = new MyViewHolder(LayoutInflater.from(
-                AboutActivity.this).inflate(R.layout.recycler_item, parent,
-                false));
-            return holder;
-
+        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new MyViewHolder(LayoutInflater.from(AboutActivity.this).inflate(R.layout.recycler_item, parent, false));
         }
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-
             holder.tv.setText(mdata.get(position));
-
         }
 
         @Override

@@ -5,21 +5,20 @@ import android.content.SharedPreferences;
 import android.net.TrafficStats;
 import android.util.Log;
 
-import static android.content.Context.MODE_PRIVATE;
 import static com.nathaniel.statiistic.StatisticsActivity.TAG;
 
 /**
  * Created by small on 2016/9/30.
  */
 
-class CalculateTodayFlow {
+public class CalculateTodayFlow {
     long calculate_file(Context context) {
         return 0;
     }
 
     long calculate(Context context) {
-        SharedPreferences.Editor editor = context.getSharedPreferences("data", MODE_PRIVATE).edit();
-        SharedPreferences pref = context.getSharedPreferences("data", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
         long result;//1 当日使用流量
         long cur_boot_mobiletx = TrafficStats.getMobileTxBytes();
@@ -28,8 +27,8 @@ class CalculateTodayFlow {
 
         editor.putLong("thisbootflow", thisbootflow);
         //Log.d("qiang", "thisbootflow:" + thisbootflow);
-        long onedaylastbootflow = pref.getLong("onedaylastbootflow", 0);//5
-        long onebootlastdayflow = pref.getLong("onebootlastdayflow", 0);//6
+        long onedaylastbootflow = sharedPreferences.getLong("onedaylastbootflow", 0);//5
+        long onebootlastdayflow = sharedPreferences.getLong("onebootlastdayflow", 0);//6
         result = thisbootflow + onedaylastbootflow - onebootlastdayflow;
 
         editor.putLong("curdayflow", result);

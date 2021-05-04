@@ -15,6 +15,8 @@ import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.preference.PreferenceManager;
+
 import com.nathaniel.statistics.R;
 
 import java.io.IOException;
@@ -25,14 +27,14 @@ import static android.content.Context.AUDIO_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 import static android.media.AudioManager.RINGER_MODE_SILENT;
 import static android.media.AudioManager.STREAM_RING;
-import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 import static com.nathaniel.statiistic.StatisticsActivity.TAG;
 
 /**
- * Created by small on 2016/9/30.
+ * @author small
+ * @date 2016/9/30
  */
 
-public class AlarmReceiverManual extends BroadcastReceiver implements SMSBroadcastReceiver.Interaction {
+public class AlarmManualReceiver extends BroadcastReceiver implements SMSBroadcastReceiver.Interaction {
     public int mode;
     public AudioManager audio;
     public int volumn = 0;
@@ -41,45 +43,46 @@ public class AlarmReceiverManual extends BroadcastReceiver implements SMSBroadca
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        String logstr = "AlarmReceiverManual";
-        SharedPreferences pref_default = getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = context.getSharedPreferences("data", Context.MODE_PRIVATE).edit();
-        SharedPreferences pref = context.getSharedPreferences("data", MODE_PRIVATE);
-        if (pref_default.getBoolean("AutomaticCheck", false)) {
-            Sendmessage sendmessage = new Sendmessage();//发送短信
-            sendmessage.Sendmessages(context);
+        String logger = "AlarmReceiverManual";
+        SharedPreferences defaultPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        if (defaultPreferences.getBoolean("AutomaticCheck", false)) {
+            //发送短信
+            SendMessage sendmessage = new SendMessage();
+            sendmessage.sendMessages(context);
             //静音
             sendmessage.silent(context);
             Log.d("qiang", "每日短信发送成功");
 
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction("android.provider.Telephony.SMS_RECEIVED");
-            SMSBroadcastReceiver dianLiangBR = new SMSBroadcastReceiver();
-            context.getApplicationContext().registerReceiver(dianLiangBR, intentFilter);
-            dianLiangBR.setInteractionListener(this);
+            SMSBroadcastReceiver smsBroadcastReceiver = new SMSBroadcastReceiver();
+            context.getApplicationContext().registerReceiver(smsBroadcastReceiver, intentFilter);
+            smsBroadcastReceiver.setInteractionListener(this);
         }
         Calendar calendar = Calendar.getInstance();
 
         int curday = calendar.get(Calendar.DAY_OF_MONTH);
         int curmonth = calendar.get(Calendar.MONTH);
         //重置
-        if (Objects.equals(Integer.valueOf(pref_default.getString("remonth", "")), curday)) {
-            editor.putLong("lastmonthflow", pref.getLong("curmonthflow", 0));//上个月使用
-            logstr += "\n" + "lastmonthflow" + ":" + pref.getLong("curmonthflow", 0);
+        if (Objects.equals(Integer.valueOf(defaultPreferences.getString("remonth", "")), curday)) {
+            editor.putLong("lastmonthflow", sharedPreferences.getLong("curmonthflow", 0));//上个月使用
+            logger += "\n" + "lastmonthflow" + ":" + sharedPreferences.getLong("curmonthflow", 0);
             editor.putLong("curmonthflow", 0);//
-            logstr += "\n" + "lastmonthflow" + ":" + pref.getLong("curmonthflow", 0);
+            logger += "\n" + "lastmonthflow" + ":" + sharedPreferences.getLong("curmonthflow", 0);
         }
 
         CalculateTodayFlow calculateTodayFlow = new CalculateTodayFlow();
         long todayflow = calculateTodayFlow.calculate(context);
-        long curmonthflow = pref.getLong("curmonthflow", 0);
+        long curmonthflow = sharedPreferences.getLong("curmonthflow", 0);
         curmonthflow = curmonthflow + todayflow;//包含闲时的
         editor.putLong("curmonthflow", curmonthflow);
-        logstr += "\n" + "curmonthflow" + ":" + curmonthflow;
+        logger += "\n" + "curmonthflow" + ":" + curmonthflow;
         editor.putLong("curfreebehind", 0);
-        logstr += "\n" + "curfreebehind" + ":" + 0;
+        logger += "\n" + "curfreebehind" + ":" + 0;
         //启动longRunningService
-        Intent i = new Intent(context, AlarmManualStart.class);
+        Intent i = new Intent(context, AlarmManualService.class);
         context.startService(i);
 
         ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -88,10 +91,10 @@ public class AlarmReceiverManual extends BroadcastReceiver implements SMSBroadca
         NetworkInfo activeInfo = manager.getActiveNetworkInfo();
 
         //long result;//1 当日使用流量
-        long thisbootflow = pref.getLong("thisbootflow", 0);//4
-        //long curdayflow=pref.getLong("curdayflow",0);
-        long onedaylastbootflow = pref.getLong("onedaylastbootflow", 0);//5
-        long onebootlastdayflow = pref.getLong("onebootlastdayflow", 0);//6
+        long thisbootflow = sharedPreferences.getLong("thisbootflow", 0);//4
+        //long curdayflow=sharedPreferences.getLong("curdayflow",0);
+        long onedaylastbootflow = sharedPreferences.getLong("onedaylastbootflow", 0);//5
+        long onebootlastdayflow = sharedPreferences.getLong("onebootlastdayflow", 0);//6
 
         if (activeInfo.isConnected()) {
             if (Objects.equals(activeInfo.getTypeName(), "MOBILE")) {
@@ -102,15 +105,14 @@ public class AlarmReceiverManual extends BroadcastReceiver implements SMSBroadca
         }
         onebootlastdayflow = thisbootflow + onedaylastbootflow;
         editor.putLong("onebootlastdayflow", onebootlastdayflow);
-        logstr += "\n" + "onebootlastdayflow" + ":" + onebootlastdayflow;
-//log
+        logger += "\n" + "onebootlastdayflow" + ":" + onebootlastdayflow;
         try {
-            new LogManager().writeLogFileAppend(context, logstr);
+            new LogManager().writeLogFileAppend(context, logger);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        editor.commit();
-        Log.d(TAG, "每日更新广播处理完毕manual");
+        boolean flag = editor.commit();
+        Log.d(TAG, "每日更新广播处理完毕manual" + flag);
     }
 
     @Override
@@ -127,8 +129,8 @@ public class AlarmReceiverManual extends BroadcastReceiver implements SMSBroadca
         if (content[1] != null && content[0] != null) {
             SharedPreferences.Editor editor = context.getSharedPreferences("data", MODE_PRIVATE).edit();
             editor.putLong("curmonthflow", 0);
-            editor.putLong("remain_liuliang", new Formatdata().GetNumFromString(content[0]));
-            editor.putLong("all_liuliang", new Formatdata().GetNumFromString(content[1]));
+            editor.putLong("remain_liuliang", new Formatdata().getNumFromString(content[0]));
+            editor.putLong("all_liuliang", new Formatdata().getNumFromString(content[1]));
             editor.putLong("curfreebehind", 0);
             editor.putLong("curfreefront", 0);
             editor.putBoolean("sent", true);
@@ -154,8 +156,8 @@ public class AlarmReceiverManual extends BroadcastReceiver implements SMSBroadca
         }
     }
 
-    public class Sendmessage {
-        void Sendmessages(Context context) {
+    public class SendMessage {
+        void sendMessages(Context context) {
             SmsManager manager = SmsManager.getDefault();
             manager.sendTextMessage(context.getString(R.string.phone), null, context.getString(R.string.message_search), null, null);  //发送短信
         }
@@ -172,7 +174,6 @@ public class AlarmReceiverManual extends BroadcastReceiver implements SMSBroadca
                 audio.setStreamVolume(STREAM_RING, 0, 0);
                 audio.setRingerMode(RINGER_MODE_SILENT);
                 //audio.setRingerMode(RINGER_MODE_SILENT);
-
                 Log.d("qiang", "old_mode:" + volumn);
                 Log.d("qiang", "old_volumn:" + volumn);
             }

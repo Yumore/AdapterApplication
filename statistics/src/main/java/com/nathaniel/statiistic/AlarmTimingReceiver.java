@@ -10,19 +10,19 @@ import android.net.NetworkInfo;
 import android.net.TrafficStats;
 import android.util.Log;
 
+import androidx.preference.PreferenceManager;
+
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Objects;
 
-import static android.content.Context.MODE_PRIVATE;
-import static android.preference.PreferenceManager.getDefaultSharedPreferences;
-import static com.nathaniel.statiistic.StatisticsActivity.TAG;
-
 /**
- * Created by small on 2016/9/30.
+ * @author small
+ * @date 2016/9/30
  */
 
-public class AlarmReceiverTiming extends BroadcastReceiver {
+public class AlarmTimingReceiver extends BroadcastReceiver {
+    private static final String TAG = AlarmTimingReceiver.class.getSimpleName();
     public NotificationManager notificationManager;
 
     @Override
@@ -35,9 +35,9 @@ public class AlarmReceiverTiming extends BroadcastReceiver {
         NetworkInfo activeInfo = manager.getActiveNetworkInfo();
         String notification_string;
 
-        SharedPreferences.Editor editor = context.getSharedPreferences("data", MODE_PRIVATE).edit();
-        SharedPreferences pref = context.getSharedPreferences("data", MODE_PRIVATE);
-        SharedPreferences pref_default = getDefaultSharedPreferences(context);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences defaultPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         if (activeInfo == null) {
             Log.d(TAG, "网络没有连接");
@@ -45,15 +45,15 @@ public class AlarmReceiverTiming extends BroadcastReceiver {
         }
         if (activeInfo.isConnected()) {
             if (Objects.equals(activeInfo.getTypeName(), "MOBILE")) {
-                long curmonthflow = pref.getLong("curmonthflow", 0);
-                long remain_liuliang = pref.getLong("remain_liuliang", 0);
+                long curmonthflow = sharedPreferences.getLong("curmonthflow", 0);
+                long remain_liuliang = sharedPreferences.getLong("remain_liuliang", 0);
                 CalculateTodayFlow calculateTodayFlow = new CalculateTodayFlow();
-                long curdayflow = ((pref.getBoolean("isreboot", false)) ? calculateTodayFlow.calculate(context) : calculateTodayFlow.calculate(context) - pref.getLong("firststartflow", 0));
-                long allfreetimeflow = new Formatdata().GetNumFromString(pref_default.getString("freeflow", "0") + "M");
-                long curmonthremainflow = pref_default.getBoolean("free", false) ? (remain_liuliang - curmonthflow - curdayflow - allfreetimeflow) : (remain_liuliang - curmonthflow - curdayflow);
+                long curdayflow = ((sharedPreferences.getBoolean("isreboot", false)) ? calculateTodayFlow.calculate(context) : calculateTodayFlow.calculate(context) - sharedPreferences.getLong("firststartflow", 0));
+                long allfreetimeflow = new Formatdata().getNumFromString(defaultPreferences.getString("freeflow", "0") + "M");
+                long curmonthremainflow = defaultPreferences.getBoolean("free", false) ? (remain_liuliang - curmonthflow - curdayflow - allfreetimeflow) : (remain_liuliang - curmonthflow - curdayflow);
                 //alert_notification
-                if (pref_default.getBoolean("alerts", true)) {
-                    if (curmonthremainflow < (new Formatdata().GetNumFromString(pref_default.getString("alertsflow", "0") + "M"))) {
+                if (defaultPreferences.getBoolean("alerts", true)) {
+                    if (curmonthremainflow < (new Formatdata().getNumFromString(defaultPreferences.getString("alertsflow", "0") + "M"))) {
                         new NotificationManagers().showNotificationRough(context);
                     }
                 }
@@ -61,11 +61,11 @@ public class AlarmReceiverTiming extends BroadcastReceiver {
                 long cur_boot_mobiletx = TrafficStats.getMobileTxBytes();
                 long cur_boot_mobilerx = TrafficStats.getMobileRxBytes();
                 long thisbootflow = cur_boot_mobilerx + cur_boot_mobiletx;//4
-                //long curdayflow = pref.getLong("curdayflow", 0);
-                //long onedaylastbootflow = pref.getLong("onedaylastbootflow", 0);//5
-                //long onebootlastdayflow = pref.getLong("onebootlastdayflow", 0);//6
+                //long curdayflow = sharedPreferences.getLong("curdayflow", 0);
+                //long onedaylastbootflow = sharedPreferences.getLong("onedaylastbootflow", 0);//5
+                //long onebootlastdayflow = sharedPreferences.getLong("onebootlastdayflow", 0);//6
 
-                long freetimeflowstart = pref.getLong("freetimeflowstart", 0);
+                long freetimeflowstart = sharedPreferences.getLong("freetimeflowstart", 0);
 
                 Calendar calendar = Calendar.getInstance();
                 int systemTime = calendar.get(Calendar.HOUR_OF_DAY);
@@ -83,8 +83,8 @@ public class AlarmReceiverTiming extends BroadcastReceiver {
                 logstr += "\nthisbootflow:" + (thisbootflow);
                 editor.putLong("curdayflow", curdayflow);
                 logstr += "\ncurdayflow:" + (curdayflow);
-                editor.putLong(calendar.get(Calendar.DAY_OF_MONTH) + "day", pref.getLong("curdayflow", 0));
-                logstr += "\n" + calendar.get(Calendar.DAY_OF_MONTH) + "day" + ":" + (pref.getLong("curdayflow", 0));
+                editor.putLong(calendar.get(Calendar.DAY_OF_MONTH) + "day", sharedPreferences.getLong("curdayflow", 0));
+                logstr += "\n" + calendar.get(Calendar.DAY_OF_MONTH) + "day" + ":" + (sharedPreferences.getLong("curdayflow", 0));
                 editor.commit();
 
                 //log
@@ -100,7 +100,7 @@ public class AlarmReceiverTiming extends BroadcastReceiver {
                     e.printStackTrace();
                 }
                 new NotificationManagers().showNotificationPrecise(context, curdayflow);
-                context.startService(new Intent(context, AlarmTimingStart.class));
+                context.startService(new Intent(context, AlarmTimingService.class));
             }
 //            Toast.makeText(context, "mobile:" + mobileInfo.isConnected() + "\n" + "wifi:" + wifiInfo.isConnected()      + "\n" + "active:" + activeInfo.getTypeName(), Toast.LENGTH_SHORT).show();
             //Log.d("qiang", "mobile:" + mobileInfo.isConnected() + ",wifi:" + wifiInfo.isConnected() + ",active:" + activeInfo.getTypeName());

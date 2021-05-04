@@ -10,18 +10,20 @@ import android.os.SystemClock;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
+import androidx.preference.PreferenceManager;
 
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import static android.preference.PreferenceManager.getDefaultSharedPreferences;
-import static com.nathaniel.statiistic.StatisticsActivity.TAG;
 
 /**
- * Created by small on 2016/11/25.
+ * @author Nathaniel
+ * @date 2016/11/25
  */
 
-public class AlarmFreeStart extends Service {
+public class AlarmFreeService extends Service {
+    private static final String TAG = AlarmFreeService.class.getSimpleName();
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -30,14 +32,14 @@ public class AlarmFreeStart extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
-        Log.d(TAG, "AlarmFreeStart已开启");
-        SharedPreferences pref_default = getDefaultSharedPreferences(this);
-        if (pref_default.getBoolean("free", true)) {
-
-            Intent intent1 = new Intent(this, AlarmReceiverFree.class); //触发广播，广播回调此方法，实现循环
+        Log.d(TAG, TAG + "已开启");
+        SharedPreferences defaultPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if (defaultPreferences.getBoolean("free", true)) {
+            //触发广播，广播回调此方法，实现循环
+            Intent intent1 = new Intent(this, AlarmFreeReceiver.class);
             PendingIntent pendingIntent2 = PendingIntent.getBroadcast(this, 1, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
-            long firstTime = SystemClock.elapsedRealtime();    // 开机之后到现在的运行时间(包括睡眠时间)
+            // 开机之后到现在的运行时间(包括睡眠时间)
+            long firstTime = SystemClock.elapsedRealtime();
             long systemTime = System.currentTimeMillis();
 
             Calendar calendar = Calendar.getInstance();
@@ -61,14 +63,11 @@ public class AlarmFreeStart extends Service {
             Log.d(TAG, "时间差：" + time);
             // 进行闹铃注册
             AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-            manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                firstTime, time, pendingIntent2);
+            manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, firstTime, time, pendingIntent2);
             Log.d(TAG, "23点广播已发");
-
             stopSelf();
             Log.d(TAG, "AlarmFreeStart已关闭");
         }
-
         return super.onStartCommand(intent, flags, startId);
     }
 }

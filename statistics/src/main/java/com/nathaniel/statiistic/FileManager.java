@@ -8,8 +8,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import static android.content.Context.MODE_APPEND;
-
 /**
  * Created by small on 2016/11/7.
  */
@@ -17,31 +15,31 @@ import static android.content.Context.MODE_APPEND;
 class FileManager {
 
     //写数据
-    void writeFileAppend(Context context, String fileName, String writestr) throws IOException {
+    void writeFileAppend(Context context, String fileName, String writeString) throws IOException {
         try {
 
-            FileOutputStream fout = context.openFileOutput(fileName, MODE_APPEND);
-            byte[] bytes = writestr.getBytes();
-            fout.write(bytes);
-            fout.close();
+            FileOutputStream fileOutputStream = context.openFileOutput(fileName, Context.MODE_APPEND);
+            byte[] bytes = writeString.getBytes();
+            fileOutputStream.write(bytes);
+            fileOutputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     String readLogFile(Context context, String filename) {
-        String res = "";
+        String result = "";
         try {
-            FileInputStream fin = context.openFileInput(filename);
-            int length = fin.available();
+            FileInputStream fileInputStream = context.openFileInput(filename);
+            int length = fileInputStream.available();
             byte[] buffer = new byte[length];
-            fin.read(buffer);
-            res = EncodingUtils.getString(buffer, "UTF-8");
-            fin.close();
+            int line = fileInputStream.read(buffer);
+            result = EncodingUtils.getString(buffer, "UTF-8");
+            fileInputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return res;
-    }//读取到/data/data/目录
+        return result;
+    }
 
 }

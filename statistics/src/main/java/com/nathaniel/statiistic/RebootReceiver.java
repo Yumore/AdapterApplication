@@ -1,29 +1,27 @@
 package com.nathaniel.statiistic;
 
-import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import static android.content.Context.MODE_PRIVATE;
-
 /**
- * Created by small on 2016/9/30.
+ * @author small
+ * @date 2016/9/30
  */
 
-public class BootReceiver extends BroadcastReceiver {
-    public NotificationManager notificationManager;
+public class RebootReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-            intent = new Intent(context, AlarmManualStart.class);
+            intent = new Intent(context, AlarmManualService.class);
             //开启关闭Service1
             context.startService(intent);
-            SharedPreferences.Editor editor = context.getSharedPreferences("data", MODE_PRIVATE).edit();
-            SharedPreferences pref = context.getSharedPreferences("data", MODE_PRIVATE);
-            long curdayflow = pref.getLong("curdayflow", 0);//4
+            SharedPreferences sharedPreferences = context.getSharedPreferences("data", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            //4
+            long curdayflow = sharedPreferences.getLong("curdayflow", 0);
             editor.putBoolean("isreboot", true);
             editor.commit();
             new NotificationManagers().showNotificationPrecise(context, curdayflow);

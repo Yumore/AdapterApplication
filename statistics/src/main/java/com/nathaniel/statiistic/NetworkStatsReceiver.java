@@ -28,9 +28,9 @@ public class NetworkStatsReceiver extends BroadcastReceiver {
             if (Objects.equals(activeInfo.getTypeName(), "MOBILE")) {
                 Log.d("qiang", "网络连接改变，改用数据，启动定时服务");
 
-                context.startService(new Intent(context, AlarmTimingStart.class));
-                context.startService(new Intent(context, AlarmFreeStart.class));
-                context.startService(new Intent(context, AlarmManualStart.class));
+                context.startService(new Intent(context, AlarmTimingService.class));
+                context.startService(new Intent(context, AlarmFreeService.class));
+                context.startService(new Intent(context, AlarmManualService.class));
 
             }
         }

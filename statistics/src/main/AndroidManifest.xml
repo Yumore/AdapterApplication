@@ -31,19 +31,19 @@
                 <action android:name="android.intent.action.ACTION_SHUTDOWN" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.nathaniel.statiistic.BootReceiver">
+        <receiver android:name="com.nathaniel.statiistic.RebootReceiver">
             <intent-filter>
                 <!-- 开机广播 -->
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.nathaniel.statiistic.AlarmReceiverManual">
+        <receiver android:name="com.nathaniel.statiistic.AlarmManualReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.ALARM_RECEIVER" />
                 <!-- 广播接收的Intent -->
             </intent-filter>
         </receiver>
-        <receiver android:name="com.nathaniel.statiistic.AlarmReceiverTiming">
+        <receiver android:name="com.nathaniel.statiistic.AlarmTimingReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.ALARM_RECEIVER" />
                 <!-- 广播接收的Intent -->
@@ -55,7 +55,7 @@
                 <!-- 广播接收的Intent -->
             </intent-filter>
         </receiver>
-        <receiver android:name="com.nathaniel.statiistic.AlarmReceiverFree">
+        <receiver android:name="com.nathaniel.statiistic.AlarmFreeReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.ALARM_RECEIVER" />
             </intent-filter>
@@ -67,9 +67,9 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="com.nathaniel.statiistic.AlarmManualStart" />
-        <service android:name="com.nathaniel.statiistic.AlarmTimingStart" />
-        <service android:name="com.nathaniel.statiistic.AlarmFreeStart" />
+        <service android:name="com.nathaniel.statiistic.AlarmManualService" />
+        <service android:name="com.nathaniel.statiistic.AlarmTimingService" />
+        <service android:name="com.nathaniel.statiistic.AlarmFreeService" />
 
     </application>
 

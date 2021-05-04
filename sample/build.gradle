@@ -36,10 +36,11 @@ android {
     buildToolsVersion "30.0.3"
     defaultConfig {
         applicationId "${properties.getProperty("config.applicationId")}"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 30
         versionCode increaseVersionCode() as Integer
         versionName "${properties.getProperty("config.versionName")}"
+        multiDexEnabled true
     }
 
 //    signingConfigs {
@@ -58,6 +59,49 @@ android {
 
     viewBinding {
         enabled = true
+    }
+
+    lintOptions {
+        abortOnError false
+        disable "NewApi"
+        checkReleaseBuilds false
+        disable 'MissingTranslation'
+        ignoreWarnings true
+    }
+
+    aaptOptions {
+        cruncherEnabled false
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+        jumboMode true
+        preDexLibraries true
+        maxProcessCount 4
+        threadCount 8
+    }
+
+    packagingOptions {
+        pickFirst 'META-INF/'
+        /*
+         exclude 'project.properties'
+         exclude 'META-INF/LICENSE.txt'
+         exclude 'META-INF/LICENSE'
+         exclude 'META-INF/NOTICE.txt'
+         exclude 'META-INF/NOTICE'
+         exclude 'META-INF/DEPENDENCIES.txt'
+         exclude 'META-INF/DEPENDENCIES'
+         */
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def buildTime = new Date().format("yyyyMMddHHmm")
+            if (variant.name.toLowerCase().contains("release")) {
+                outputFileName = "${project.rootDir.name}-${buildTime}-${defaultConfig.versionName}-${variant.buildType.name}.apk"
+                project.logger.error("outputFileName: ${outputFileName}")
+            }
+        }
     }
 
 //    buildTypes {
@@ -100,7 +144,8 @@ dependencies {
     implementation project(':startup')
     implementation project(':baseui')
     implementation project(':netguard')
-    implementation project(':example')
+    implementation project(':datause')
+    implementation project(':statistics')
 
     implementation "androidx.multidex:multidex:2.0.1"
 }

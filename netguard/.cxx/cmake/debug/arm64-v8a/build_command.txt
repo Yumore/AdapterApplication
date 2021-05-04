@@ -12,7 +12,7 @@ arguments :
 -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=E:\AndroidStudio\AdapterApplication\netguard\build\intermediates\cmake\debug\obj\arm64-v8a
 -DCMAKE_MAKE_PROGRAM=F:\AndroidSDK\cmake\3.10.2.4988404\bin\ninja.exe
 -DCMAKE_SYSTEM_NAME=Android
--DCMAKE_SYSTEM_VERSION=21
+-DCMAKE_SYSTEM_VERSION=19
 -DANDROID_PLATFORM=android-22
 -BE:\AndroidStudio\AdapterApplication\netguard\.cxx\cmake\debug\arm64-v8a
 -GNinja

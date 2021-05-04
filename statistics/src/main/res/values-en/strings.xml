@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TrafficStatistic</string>
+    <string name="action_settings">Setting</string>
+    <string name="title_activity_settings">Setting</string>
+    <string name="phone">10086</string>
+    <string name="message_search">CXLL</string>
+    <string name="help">help</string>
+    <string name="version">current version:2.0.1</string>
+    <string name="opensourcetitle">thanks</string>
+    <string name="updatelogtitle">update</string>
+    <string name="opensource">感谢开源世界，让我们能在巨人的肩膀上看的更远</string>
+    <string name="opensource_item">
+        ·lecho/hellocharts-android\n·com.android.support.design
+    </string>
+    <string name="updatetext">
+        1.0.0\n\t\t\t1.新增闲时统计功能\n\t\t\t2.新增通知管理\n2.0.0\n\t\t\t1.新增可视化图表\n\t\t\t2.修复已知问题\n2.1.0\n\t\t\t1.删除无用权限\n\t\t\t2.重绘图标\n2.1.1\n\t\t\t1.适配Nougat\n3.1.3\n\t\t\t1.扩大正则表达式适用范围\n\t\t\t2.调节后台数据刷新频率，显著降低耗电量\n\t\t\t3.新增流量上限警戒通知
+    </string>
+
+    <string-array name="month_day">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+    </string-array>
+
+    <string name="eachmonth">每月使用情况</string>
+    <string name="eachday">每日使用情况</string>
+
+
+    <string name="app_small_name">Inaccurate TrafficStatistic</string>
+    <string name="about">about</string>
+    <string name="log">log</string>
+    <string name="log_message">The logging function is disabled, and the logging function is enabled?</string>
+    <string name="toast_search">Please close the wifi and open the data switch after the query</string>
+    <string name="inquery">querying…</string>
+    <string name="sent">Sent</string>
+    <string name="ok">OK</string>
+    <string name="cancel">cancel</string>
+    <string name="inquery_failure">inquery failure</string>
+    <string name="help_message">--Click the check button is to be sure to open the data and close the wifi\n--After using the calibration function, click the home page search button to import the settings</string>
+    <string name="close_sms_grant">Receive SMS permission is turned off</string>
+    <string name="refresh">refresh</string>
+</resources>

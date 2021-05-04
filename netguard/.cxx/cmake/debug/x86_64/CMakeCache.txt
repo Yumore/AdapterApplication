@@ -202,7 +202,7 @@ CMAKE_STRIP:FILEPATH=F:/AndroidSDK/ndk-bundle/toolchains/llvm/prebuilt/windows-x
 CMAKE_SYSTEM_NAME:UNINITIALIZED=Android
 
 //No help, variable specified on the command line.
-CMAKE_SYSTEM_VERSION:UNINITIALIZED=21
+CMAKE_SYSTEM_VERSION:UNINITIALIZED=19
 
 //The CMake toolchain file
 CMAKE_TOOLCHAIN_FILE:FILEPATH=F:/AndroidSDK/ndk-bundle/build/cmake/android.toolchain.cmake

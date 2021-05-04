@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.nathaniel.baseui.AbstractActivity;
 import com.nathaniel.sample.binding.DemoBindingActivity;
 import com.nathaniel.sample.databinding.ActivityMainBinding;
+import com.nathaniel.statiistic.StatisticsActivity;
 
 import eu.faircode.netguard.ActivityMain;
 
@@ -45,5 +46,9 @@ public class MainActivity extends AbstractActivity<ActivityMainBinding> {
         binding.btnPackage.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, PackageActivity.class)));
 
         binding.btnNetGuard.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, ActivityMain.class)));
+
+        binding.btnDataUse.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SummaryActivity.class)));
+
+        binding.btnDataStatistics.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, StatisticsActivity.class)));
     }
 }

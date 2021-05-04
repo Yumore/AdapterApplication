@@ -55,14 +55,10 @@ public class PackageActivity extends AbstractActivity<ActivityPackageBinding> {
                     String regex = "yyyy-MM-dd HH:mm:ss";
                     @SuppressLint("SimpleDateFormat")
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(regex);
-                    long[] totalData = AppUtils.getNetworkUsage();
-                    // LoggerUtils.logger(TAG, String.format("send data: %d kb, receive data: %d kb", totalData[0], totalData[1]));
-                    binding.packageTotalTv.setText(String.format("send total: %s, receive total: %s , send total from file: %s, receive total from file: %s, time :%s",
-                            DataUtils.getRealDataSize(TrafficStats.getTotalTxBytes()),
-                            DataUtils.getRealDataSize(TrafficStats.getTotalRxBytes()),
-                            DataUtils.getRealDataSize(totalData[0]),
-                            DataUtils.getRealDataSize(totalData[1]),
-                            simpleDateFormat.format(System.currentTimeMillis())));
+                    binding.packageTotalTv.setText(String.format("send total: %s, receive total: %s, time :%s",
+                        DataUtils.getRealDataSize(TrafficStats.getTotalTxBytes()),
+                        DataUtils.getRealDataSize(TrafficStats.getTotalRxBytes()),
+                        simpleDateFormat.format(System.currentTimeMillis())));
                     new Handler(getMainLooper()).postDelayed(() -> {
                         handler.sendEmptyMessage(HANDLER_WHAT_REFRESH);
                     }, DELAY_MILLIS);

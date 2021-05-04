@@ -1,20 +1,20 @@
-                Executable : /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/bin/cmake
+                Executable : F:\AndroidSDK\cmake\3.10.2.4988404\bin\cmake.exe
 arguments : 
--H/Users/nathaniel/workspace/AndroidStudio/AdapterApplication/netguard
--DCMAKE_FIND_ROOT_PATH=/Users/nathaniel/workspace/AndroidStudio/AdapterApplication/netguard/.cxx/cmake/debug/prefab/x86/prefab
+-HE:\AndroidStudio\AdapterApplication\netguard
+-DCMAKE_FIND_ROOT_PATH=E:\AndroidStudio\AdapterApplication\netguard\.cxx\cmake\debug\prefab\x86\prefab
 -DCMAKE_BUILD_TYPE=Debug
--DCMAKE_TOOLCHAIN_FILE=/Users/nathaniel/Library/Android/sdk/ndk/21.1.6352462/build/cmake/android.toolchain.cmake
+-DCMAKE_TOOLCHAIN_FILE=F:\AndroidSDK\ndk-bundle\build\cmake\android.toolchain.cmake
 -DANDROID_ABI=x86
--DANDROID_NDK=/Users/nathaniel/Library/Android/sdk/ndk/21.1.6352462
+-DANDROID_NDK=F:\AndroidSDK\ndk-bundle
 -DCMAKE_ANDROID_ARCH_ABI=x86
--DCMAKE_ANDROID_NDK=/Users/nathaniel/Library/Android/sdk/ndk/21.1.6352462
+-DCMAKE_ANDROID_NDK=F:\AndroidSDK\ndk-bundle
 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
--DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/Users/nathaniel/workspace/AndroidStudio/AdapterApplication/netguard/build/intermediates/cmake/debug/obj/x86
--DCMAKE_MAKE_PROGRAM=/Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=E:\AndroidStudio\AdapterApplication\netguard\build\intermediates\cmake\debug\obj\x86
+-DCMAKE_MAKE_PROGRAM=F:\AndroidSDK\cmake\3.10.2.4988404\bin\ninja.exe
 -DCMAKE_SYSTEM_NAME=Android
--DCMAKE_SYSTEM_VERSION=21
+-DCMAKE_SYSTEM_VERSION=19
 -DANDROID_PLATFORM=android-22
--B/Users/nathaniel/workspace/AndroidStudio/AdapterApplication/netguard/.cxx/cmake/debug/x86
+-BE:\AndroidStudio\AdapterApplication\netguard\.cxx\cmake\debug\x86
 -GNinja
 jvmArgs : 
 

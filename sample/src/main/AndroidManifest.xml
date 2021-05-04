@@ -9,6 +9,8 @@
         android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
 
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:name=".SampleApplication"
         android:allowBackup="false"
@@ -65,10 +67,13 @@
             android:label="包标签的id" />
         <activity
             android:name=".binding.DemoBindingActivity"
-            android:label="viewBinding" />
+            android:label="@string/app_name" />
         <activity
             android:name=".PackageActivity"
-            android:label="viewBinding" />
+            android:label="@string/app_name" />
+        <activity
+            android:name=".SummaryActivity"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yecy.settingapi"
+    package="com.nathaniel.settings"
     android:sharedUserId="android.uid.system">
 
     <!-- 获取应用耗电量信息 -->
@@ -10,10 +10,12 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
 
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
+
     <application>
-        <activity android:name=".ExampleActivity" />
+        <activity android:name="com.nathaniel.settings.ExampleActivity" />
         <activity android:name=".PowerUsageActivity" />
-        <activity android:name=".DataUsageActivity" />
+        <activity android:name="com.nathaniel.settings.DataUsageActivity" />
     </application>
 
 </manifest>

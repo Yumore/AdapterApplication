@@ -1,3 +1,3 @@
-/Users/nathaniel/workspace/AndroidStudio/AdapterApplication/netguard/.cxx/cmake/debug/x86/CMakeFiles/rebuild_cache.dir
-/Users/nathaniel/workspace/AndroidStudio/AdapterApplication/netguard/.cxx/cmake/debug/x86/CMakeFiles/edit_cache.dir
-/Users/nathaniel/workspace/AndroidStudio/AdapterApplication/netguard/.cxx/cmake/debug/x86/CMakeFiles/netguard.dir
+E:/AndroidStudio/AdapterApplication/netguard/.cxx/cmake/debug/x86/CMakeFiles/rebuild_cache.dir
+E:/AndroidStudio/AdapterApplication/netguard/.cxx/cmake/debug/x86/CMakeFiles/netguard.dir
+E:/AndroidStudio/AdapterApplication/netguard/.cxx/cmake/debug/x86/CMakeFiles/edit_cache.dir

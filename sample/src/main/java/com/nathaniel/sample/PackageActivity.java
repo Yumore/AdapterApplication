@@ -1,9 +1,15 @@
 package com.nathaniel.sample;
 
 import android.annotation.SuppressLint;
+import android.app.AppOpsManager;
+import android.content.Context;
+import android.content.Intent;
 import android.net.TrafficStats;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -67,7 +73,6 @@ public class PackageActivity extends AbstractActivity<ActivityPackageBinding> {
                 }
             }
         };
-
     }
 
     @SuppressLint("DefaultLocale")
@@ -78,5 +83,20 @@ public class PackageActivity extends AbstractActivity<ActivityPackageBinding> {
         int padding = (int) getResources().getDimension(R.dimen.common_padding_small);
         binding.recyclerView.addItemDecoration(new ItemDecoration(padding, ItemDecoration.LINEAR_LAYOUT_MANAGER));
         binding.recyclerView.setAdapter(packageAdapter);
+        packageAdapter.setOnItemClickListener((adapter, view, position) -> {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                Toast.makeText(getApplicationContext(), "版本过低没法打开", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            final AppOpsManager appOpsManager = (AppOpsManager) getSystemService(Context.APP_OPS_SERVICE);
+            int mode = appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, android.os.Process.myUid(), getPackageName());
+            if (mode == AppOpsManager.MODE_ALLOWED) {
+                Toast.makeText(getApplicationContext(), "版本过低没法打开", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            // 打开“有权查看使用情况的应用”页面
+            Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+            startActivity(intent);
+        });
     }
 }

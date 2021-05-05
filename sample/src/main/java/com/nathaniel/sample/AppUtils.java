@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -190,7 +191,72 @@ public class AppUtils {
         return totalBytes;
     }
 
-    //
+
+    public static void getNetworkUsage1(Context context) {
+        NetworkStatsManager networkStatsManager = (NetworkStatsManager) context.getSystemService(Context.NETWORK_STATS_SERVICE);
+        NetworkStats.Bucket bucket = null;
+// 获取到目前为止设备的Wi-Fi流量统计
+        try {
+            bucket = networkStatsManager.querySummaryForDevice(ConnectivityManager.TYPE_WIFI, "", 0, System.currentTimeMillis());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        LoggerUtils.logger(TAG, "Total: " + (bucket.getRxBytes() + bucket.getTxBytes()));
+
+        // 获取subscriberId
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        @SuppressLint("MissingPermission")
+        String subId = tm.getSubscriberId();
+
+        NetworkStats summaryStats;
+        long summaryRx = 0;
+        long summaryTx = 0;
+        NetworkStats.Bucket summaryBucket = new NetworkStats.Bucket();
+        long summaryTotal = 0;
+
+        try {
+            summaryStats = networkStatsManager.querySummary(ConnectivityManager.TYPE_MOBILE, subId, getTimesMonthMorning(), System.currentTimeMillis());
+            do {
+                summaryStats.getNextBucket(summaryBucket);
+                int summaryUid = summaryBucket.getUid();
+                int uid = 0;
+                if (uid == summaryUid) {
+                    summaryRx += summaryBucket.getRxBytes();
+                    summaryTx += summaryBucket.getTxBytes();
+                }
+                LoggerUtils.logger(TAG, "uid:" + summaryBucket.getUid() + " rx:" + summaryBucket.getRxBytes() + " tx:" + summaryBucket.getTxBytes());
+                summaryTotal += summaryBucket.getRxBytes() + summaryBucket.getTxBytes();
+            } while (summaryStats.hasNextBucket());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static int getUidByPackageName(Context context, String packageName) {
+        int uid = -1;
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            PackageInfo packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_META_DATA);
+
+            uid = packageInfo.applicationInfo.uid;
+            LoggerUtils.logger(TAG, packageInfo.packageName + " uid:" + uid);
+
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return uid;
+    }
+
+    public static long getTimesMonthMorning() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+        return cal.getTimeInMillis();
+    }
+
     public static long[] getNetworkUsageByUid(long uid) {
         BufferedReader bufferedReader;
         String line;

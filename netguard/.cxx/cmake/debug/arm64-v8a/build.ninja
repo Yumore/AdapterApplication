@@ -34,11 +34,20 @@ include rules.ninja
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D E:\AndroidStudio\AdapterApplication\netguard\.cxx\cmake\debug\arm64-v8a && F:\AndroidSDK\cmake\3.10.2.4988404\bin\cmake.exe -HE:\AndroidStudio\AdapterApplication\netguard -BE:\AndroidStudio\AdapterApplication\netguard\.cxx\cmake\debug\arm64-v8a"
+  COMMAND = cd /Users/nathaniel/workspace/AndroidStudio/AdapterApplication/netguard/.cxx/cmake/debug/arm64-v8a && /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/bin/cmake -H/Users/nathaniel/workspace/AndroidStudio/AdapterApplication/netguard -B/Users/nathaniel/workspace/AndroidStudio/AdapterApplication/netguard/.cxx/cmake/debug/arm64-v8a
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
+
+#############################################
+# Utility command for edit_cache
+
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/nathaniel/workspace/AndroidStudio/AdapterApplication/netguard/.cxx/cmake/debug/arm64-v8a && /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+build edit_cache: phony CMakeFiles/edit_cache.util
 # =============================================================================
 # Object build statements for SHARED_LIBRARY target netguard
 
@@ -49,102 +58,93 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 build cmake_object_order_depends_target_netguard: phony
 build CMakeFiles/netguard.dir/src/main/jni/netguard/netguard.c.o: C_COMPILER__netguard ../../../../src/main/jni/netguard/netguard.c || cmake_object_order_depends_target_netguard
   DEFINES = -Dnetguard_EXPORTS
-  DEP_FILE = CMakeFiles\netguard.dir\src\main\jni\netguard\netguard.c.o.d
+  DEP_FILE = CMakeFiles/netguard.dir/src/main/jni/netguard/netguard.c.o.d
   FLAGS = -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC
   INCLUDES = -I../../../../src/main/jni/netguard
-  OBJECT_DIR = CMakeFiles\netguard.dir
-  OBJECT_FILE_DIR = CMakeFiles\netguard.dir\src\main\jni\netguard
+  OBJECT_DIR = CMakeFiles/netguard.dir
+  OBJECT_FILE_DIR = CMakeFiles/netguard.dir/src/main/jni/netguard
 build CMakeFiles/netguard.dir/src/main/jni/netguard/session.c.o: C_COMPILER__netguard ../../../../src/main/jni/netguard/session.c || cmake_object_order_depends_target_netguard
   DEFINES = -Dnetguard_EXPORTS
-  DEP_FILE = CMakeFiles\netguard.dir\src\main\jni\netguard\session.c.o.d
+  DEP_FILE = CMakeFiles/netguard.dir/src/main/jni/netguard/session.c.o.d
   FLAGS = -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC
   INCLUDES = -I../../../../src/main/jni/netguard
-  OBJECT_DIR = CMakeFiles\netguard.dir
-  OBJECT_FILE_DIR = CMakeFiles\netguard.dir\src\main\jni\netguard
+  OBJECT_DIR = CMakeFiles/netguard.dir
+  OBJECT_FILE_DIR = CMakeFiles/netguard.dir/src/main/jni/netguard
 build CMakeFiles/netguard.dir/src/main/jni/netguard/ip.c.o: C_COMPILER__netguard ../../../../src/main/jni/netguard/ip.c || cmake_object_order_depends_target_netguard
   DEFINES = -Dnetguard_EXPORTS
-  DEP_FILE = CMakeFiles\netguard.dir\src\main\jni\netguard\ip.c.o.d
+  DEP_FILE = CMakeFiles/netguard.dir/src/main/jni/netguard/ip.c.o.d
   FLAGS = -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC
   INCLUDES = -I../../../../src/main/jni/netguard
-  OBJECT_DIR = CMakeFiles\netguard.dir
-  OBJECT_FILE_DIR = CMakeFiles\netguard.dir\src\main\jni\netguard
+  OBJECT_DIR = CMakeFiles/netguard.dir
+  OBJECT_FILE_DIR = CMakeFiles/netguard.dir/src/main/jni/netguard
 build CMakeFiles/netguard.dir/src/main/jni/netguard/tcp.c.o: C_COMPILER__netguard ../../../../src/main/jni/netguard/tcp.c || cmake_object_order_depends_target_netguard
   DEFINES = -Dnetguard_EXPORTS
-  DEP_FILE = CMakeFiles\netguard.dir\src\main\jni\netguard\tcp.c.o.d
+  DEP_FILE = CMakeFiles/netguard.dir/src/main/jni/netguard/tcp.c.o.d
   FLAGS = -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC
   INCLUDES = -I../../../../src/main/jni/netguard
-  OBJECT_DIR = CMakeFiles\netguard.dir
-  OBJECT_FILE_DIR = CMakeFiles\netguard.dir\src\main\jni\netguard
+  OBJECT_DIR = CMakeFiles/netguard.dir
+  OBJECT_FILE_DIR = CMakeFiles/netguard.dir/src/main/jni/netguard
 build CMakeFiles/netguard.dir/src/main/jni/netguard/udp.c.o: C_COMPILER__netguard ../../../../src/main/jni/netguard/udp.c || cmake_object_order_depends_target_netguard
   DEFINES = -Dnetguard_EXPORTS
-  DEP_FILE = CMakeFiles\netguard.dir\src\main\jni\netguard\udp.c.o.d
+  DEP_FILE = CMakeFiles/netguard.dir/src/main/jni/netguard/udp.c.o.d
   FLAGS = -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC
   INCLUDES = -I../../../../src/main/jni/netguard
-  OBJECT_DIR = CMakeFiles\netguard.dir
-  OBJECT_FILE_DIR = CMakeFiles\netguard.dir\src\main\jni\netguard
+  OBJECT_DIR = CMakeFiles/netguard.dir
+  OBJECT_FILE_DIR = CMakeFiles/netguard.dir/src/main/jni/netguard
 build CMakeFiles/netguard.dir/src/main/jni/netguard/icmp.c.o: C_COMPILER__netguard ../../../../src/main/jni/netguard/icmp.c || cmake_object_order_depends_target_netguard
   DEFINES = -Dnetguard_EXPORTS
-  DEP_FILE = CMakeFiles\netguard.dir\src\main\jni\netguard\icmp.c.o.d
+  DEP_FILE = CMakeFiles/netguard.dir/src/main/jni/netguard/icmp.c.o.d
   FLAGS = -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC
   INCLUDES = -I../../../../src/main/jni/netguard
-  OBJECT_DIR = CMakeFiles\netguard.dir
-  OBJECT_FILE_DIR = CMakeFiles\netguard.dir\src\main\jni\netguard
+  OBJECT_DIR = CMakeFiles/netguard.dir
+  OBJECT_FILE_DIR = CMakeFiles/netguard.dir/src/main/jni/netguard
 build CMakeFiles/netguard.dir/src/main/jni/netguard/dns.c.o: C_COMPILER__netguard ../../../../src/main/jni/netguard/dns.c || cmake_object_order_depends_target_netguard
   DEFINES = -Dnetguard_EXPORTS
-  DEP_FILE = CMakeFiles\netguard.dir\src\main\jni\netguard\dns.c.o.d
+  DEP_FILE = CMakeFiles/netguard.dir/src/main/jni/netguard/dns.c.o.d
   FLAGS = -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC
   INCLUDES = -I../../../../src/main/jni/netguard
-  OBJECT_DIR = CMakeFiles\netguard.dir
-  OBJECT_FILE_DIR = CMakeFiles\netguard.dir\src\main\jni\netguard
+  OBJECT_DIR = CMakeFiles/netguard.dir
+  OBJECT_FILE_DIR = CMakeFiles/netguard.dir/src/main/jni/netguard
 build CMakeFiles/netguard.dir/src/main/jni/netguard/dhcp.c.o: C_COMPILER__netguard ../../../../src/main/jni/netguard/dhcp.c || cmake_object_order_depends_target_netguard
   DEFINES = -Dnetguard_EXPORTS
-  DEP_FILE = CMakeFiles\netguard.dir\src\main\jni\netguard\dhcp.c.o.d
+  DEP_FILE = CMakeFiles/netguard.dir/src/main/jni/netguard/dhcp.c.o.d
   FLAGS = -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC
   INCLUDES = -I../../../../src/main/jni/netguard
-  OBJECT_DIR = CMakeFiles\netguard.dir
-  OBJECT_FILE_DIR = CMakeFiles\netguard.dir\src\main\jni\netguard
+  OBJECT_DIR = CMakeFiles/netguard.dir
+  OBJECT_FILE_DIR = CMakeFiles/netguard.dir/src/main/jni/netguard
 build CMakeFiles/netguard.dir/src/main/jni/netguard/pcap.c.o: C_COMPILER__netguard ../../../../src/main/jni/netguard/pcap.c || cmake_object_order_depends_target_netguard
   DEFINES = -Dnetguard_EXPORTS
-  DEP_FILE = CMakeFiles\netguard.dir\src\main\jni\netguard\pcap.c.o.d
+  DEP_FILE = CMakeFiles/netguard.dir/src/main/jni/netguard/pcap.c.o.d
   FLAGS = -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC
   INCLUDES = -I../../../../src/main/jni/netguard
-  OBJECT_DIR = CMakeFiles\netguard.dir
-  OBJECT_FILE_DIR = CMakeFiles\netguard.dir\src\main\jni\netguard
+  OBJECT_DIR = CMakeFiles/netguard.dir
+  OBJECT_FILE_DIR = CMakeFiles/netguard.dir/src/main/jni/netguard
 build CMakeFiles/netguard.dir/src/main/jni/netguard/util.c.o: C_COMPILER__netguard ../../../../src/main/jni/netguard/util.c || cmake_object_order_depends_target_netguard
   DEFINES = -Dnetguard_EXPORTS
-  DEP_FILE = CMakeFiles\netguard.dir\src\main\jni\netguard\util.c.o.d
+  DEP_FILE = CMakeFiles/netguard.dir/src/main/jni/netguard/util.c.o.d
   FLAGS = -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC
   INCLUDES = -I../../../../src/main/jni/netguard
-  OBJECT_DIR = CMakeFiles\netguard.dir
-  OBJECT_FILE_DIR = CMakeFiles\netguard.dir\src\main\jni\netguard
+  OBJECT_DIR = CMakeFiles/netguard.dir
+  OBJECT_FILE_DIR = CMakeFiles/netguard.dir/src/main/jni/netguard
 
 # =============================================================================
 # Link build statements for SHARED_LIBRARY target netguard
 
 
 #############################################
-# Link the shared library ..\..\..\..\build\intermediates\cmake\debug\obj\arm64-v8a\libnetguard.so
+# Link the shared library ../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libnetguard.so
 
-build ../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libnetguard.so: C_SHARED_LIBRARY_LINKER__netguard CMakeFiles/netguard.dir/src/main/jni/netguard/netguard.c.o CMakeFiles/netguard.dir/src/main/jni/netguard/session.c.o CMakeFiles/netguard.dir/src/main/jni/netguard/ip.c.o CMakeFiles/netguard.dir/src/main/jni/netguard/tcp.c.o CMakeFiles/netguard.dir/src/main/jni/netguard/udp.c.o CMakeFiles/netguard.dir/src/main/jni/netguard/icmp.c.o CMakeFiles/netguard.dir/src/main/jni/netguard/dns.c.o CMakeFiles/netguard.dir/src/main/jni/netguard/dhcp.c.o CMakeFiles/netguard.dir/src/main/jni/netguard/pcap.c.o CMakeFiles/netguard.dir/src/main/jni/netguard/util.c.o | F$:/AndroidSDK/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/aarch64-linux-android/22/liblog.so
+build ../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libnetguard.so: C_SHARED_LIBRARY_LINKER__netguard CMakeFiles/netguard.dir/src/main/jni/netguard/netguard.c.o CMakeFiles/netguard.dir/src/main/jni/netguard/session.c.o CMakeFiles/netguard.dir/src/main/jni/netguard/ip.c.o CMakeFiles/netguard.dir/src/main/jni/netguard/tcp.c.o CMakeFiles/netguard.dir/src/main/jni/netguard/udp.c.o CMakeFiles/netguard.dir/src/main/jni/netguard/icmp.c.o CMakeFiles/netguard.dir/src/main/jni/netguard/dns.c.o CMakeFiles/netguard.dir/src/main/jni/netguard/dhcp.c.o CMakeFiles/netguard.dir/src/main/jni/netguard/pcap.c.o CMakeFiles/netguard.dir/src/main/jni/netguard/util.c.o | /Users/nathaniel/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/22/liblog.so
   LANGUAGE_COMPILE_FLAGS = -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -O0 -fno-limit-debug-info
-  LINK_FLAGS = -Wl,--exclude-libs,libgcc.a -Wl,--exclude-libs,libgcc_real.a -Wl,--exclude-libs,libatomic.a -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments
+  LINK_FLAGS = -Wl,--exclude-libs,libgcc.a -Wl,--exclude-libs,libgcc_real.a -Wl,--exclude-libs,libatomic.a -static-libstdc++ -Wl,--build-id -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments
   LINK_LIBRARIES = -llog -latomic -lm
-  OBJECT_DIR = CMakeFiles\netguard.dir
-  POST_BUILD = cd .
-  PRE_LINK = cd .
+  OBJECT_DIR = CMakeFiles/netguard.dir
+  POST_BUILD = :
+  PRE_LINK = :
   SONAME = libnetguard.so
   SONAME_FLAG = -Wl,-soname,
-  TARGET_FILE = ..\..\..\..\build\intermediates\cmake\debug\obj\arm64-v8a\libnetguard.so
+  TARGET_FILE = ../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libnetguard.so
   TARGET_PDB = netguard.so.dbg
-
-#############################################
-# Utility command for edit_cache
-
-build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D E:\AndroidStudio\AdapterApplication\netguard\.cxx\cmake\debug\arm64-v8a && F:\AndroidSDK\cmake\3.10.2.4988404\bin\cmake.exe -E echo "No interactive CMake dialog available.""
-  DESC = No interactive CMake dialog available...
-  restat = 1
-build edit_cache: phony CMakeFiles/edit_cache.util
 # =============================================================================
 # Target aliases.
 
@@ -171,13 +171,13 @@ default all
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ../../../../CMakeLists.txt CMakeCache.txt CMakeFiles/3.10.2/CMakeCCompiler.cmake CMakeFiles/3.10.2/CMakeCXXCompiler.cmake CMakeFiles/3.10.2/CMakeSystem.cmake CMakeFiles/feature_tests.c CMakeFiles/feature_tests.cxx F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCCompiler.cmake.in F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCCompilerABI.c F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCInformation.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXCompiler.cmake.in F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXInformation.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCommonLanguageInclude.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCCompiler.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCXXCompiler.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompileFeatures.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompiler.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompilerABI.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineSystem.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeFindBinUtils.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeGenericSystem.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeLanguageInformation.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeParseImplicitLinkInfo.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystem.cmake.in F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystemSpecificInformation.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystemSpecificInitialize.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCCompiler.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCXXCompiler.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCompilerCommon.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/CMakeCommonCompilerMacros.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-C-FeatureTests.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-C.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-FeatureTests.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-TestableFeatures.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-FindBinUtils.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/GNU.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Internal/FeatureTesting.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang-C.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang-CXX.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Determine-C.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Determine-CXX.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Determine.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Initialize.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android/Determine-Compiler.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Linux.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/UnixPaths.cmake F$:/AndroidSDK/ndk-bundle/build/cmake/android.toolchain.cmake F$:/AndroidSDK/ndk-bundle/build/cmake/compiler_id.cmake F$:/AndroidSDK/ndk-bundle/build/cmake/platforms.cmake
+build build.ninja: RERUN_CMAKE | ../../../../CMakeLists.txt /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCCompiler.cmake.in /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCCompilerABI.c /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCInformation.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXCompiler.cmake.in /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXInformation.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCommonLanguageInclude.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCCompiler.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCXXCompiler.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompileFeatures.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompiler.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompilerABI.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineSystem.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeFindBinUtils.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeGenericSystem.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeLanguageInformation.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeParseImplicitLinkInfo.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystem.cmake.in /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystemSpecificInformation.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystemSpecificInitialize.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCCompiler.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCXXCompiler.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCompilerCommon.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-C-FeatureTests.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-C.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-FeatureTests.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-TestableFeatures.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-FindBinUtils.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/GNU.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Internal/FeatureTesting.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang-C.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang-CXX.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Determine-C.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Determine-CXX.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Determine.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Initialize.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android/Determine-Compiler.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Linux.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/UnixPaths.cmake /Users/nathaniel/Library/Android/sdk/ndk/21.4.7075529/build/cmake/android.toolchain.cmake /Users/nathaniel/Library/Android/sdk/ndk/21.4.7075529/build/cmake/platforms.cmake CMakeCache.txt CMakeFiles/3.10.2/CMakeCCompiler.cmake CMakeFiles/3.10.2/CMakeCXXCompiler.cmake CMakeFiles/3.10.2/CMakeSystem.cmake CMakeFiles/feature_tests.c CMakeFiles/feature_tests.cxx
   pool = console
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ../../../../CMakeLists.txt CMakeCache.txt CMakeFiles/3.10.2/CMakeCCompiler.cmake CMakeFiles/3.10.2/CMakeCXXCompiler.cmake CMakeFiles/3.10.2/CMakeSystem.cmake CMakeFiles/feature_tests.c CMakeFiles/feature_tests.cxx F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCCompiler.cmake.in F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCCompilerABI.c F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCInformation.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXCompiler.cmake.in F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXInformation.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCommonLanguageInclude.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCCompiler.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCXXCompiler.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompileFeatures.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompiler.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompilerABI.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineSystem.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeFindBinUtils.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeGenericSystem.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeLanguageInformation.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeParseImplicitLinkInfo.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystem.cmake.in F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystemSpecificInformation.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystemSpecificInitialize.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCCompiler.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCXXCompiler.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCompilerCommon.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/CMakeCommonCompilerMacros.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-C-FeatureTests.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-C.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-FeatureTests.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-TestableFeatures.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-FindBinUtils.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/GNU.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Internal/FeatureTesting.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang-C.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang-CXX.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Determine-C.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Determine-CXX.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Determine.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Initialize.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android/Determine-Compiler.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Linux.cmake F$:/AndroidSDK/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/UnixPaths.cmake F$:/AndroidSDK/ndk-bundle/build/cmake/android.toolchain.cmake F$:/AndroidSDK/ndk-bundle/build/cmake/compiler_id.cmake F$:/AndroidSDK/ndk-bundle/build/cmake/platforms.cmake: phony
+build ../../../../CMakeLists.txt /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCCompiler.cmake.in /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCCompilerABI.c /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCInformation.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXCompiler.cmake.in /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXInformation.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCommonLanguageInclude.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCCompiler.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCXXCompiler.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompileFeatures.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompiler.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompilerABI.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineSystem.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeFindBinUtils.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeGenericSystem.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeLanguageInformation.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeParseImplicitLinkInfo.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystem.cmake.in /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystemSpecificInformation.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystemSpecificInitialize.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCCompiler.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCXXCompiler.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCompilerCommon.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-C-FeatureTests.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-C.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-FeatureTests.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-TestableFeatures.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-FindBinUtils.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/GNU.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Internal/FeatureTesting.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang-C.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang-CXX.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Determine-C.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Determine-CXX.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Determine.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Initialize.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android/Determine-Compiler.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Linux.cmake /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/UnixPaths.cmake /Users/nathaniel/Library/Android/sdk/ndk/21.4.7075529/build/cmake/android.toolchain.cmake /Users/nathaniel/Library/Android/sdk/ndk/21.4.7075529/build/cmake/platforms.cmake CMakeCache.txt CMakeFiles/3.10.2/CMakeCCompiler.cmake CMakeFiles/3.10.2/CMakeCXXCompiler.cmake CMakeFiles/3.10.2/CMakeSystem.cmake CMakeFiles/feature_tests.c CMakeFiles/feature_tests.cxx: phony
 
 #############################################
 # Clean all the built files.

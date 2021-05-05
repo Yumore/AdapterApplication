@@ -1,21 +1,21 @@
-                    Executable : F:\AndroidSDK\cmake\3.10.2.4988404\bin\cmake.exe
+                    Executable : /Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/bin/cmake
 arguments : 
--HE:\AndroidStudio\AdapterApplication\netguard
--DCMAKE_FIND_ROOT_PATH=E:\AndroidStudio\AdapterApplication\netguard\.cxx\cmake\debug\prefab\arm64-v8a\prefab
+-H/Users/nathaniel/workspace/AndroidStudio/AdapterApplication/netguard
+-DCMAKE_FIND_ROOT_PATH=/Users/nathaniel/workspace/AndroidStudio/AdapterApplication/netguard/.cxx/cmake/debug/prefab/arm64-v8a/prefab
 -DCMAKE_BUILD_TYPE=Debug
--DCMAKE_TOOLCHAIN_FILE=F:\AndroidSDK\ndk-bundle\build\cmake\android.toolchain.cmake
+-DCMAKE_TOOLCHAIN_FILE=/Users/nathaniel/Library/Android/sdk/ndk/21.4.7075529/build/cmake/android.toolchain.cmake
 -DANDROID_ABI=arm64-v8a
--DANDROID_NDK=F:\AndroidSDK\ndk-bundle
+-DANDROID_NDK=/Users/nathaniel/Library/Android/sdk/ndk/21.4.7075529
 -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a
--DCMAKE_ANDROID_NDK=F:\AndroidSDK\ndk-bundle
+-DCMAKE_ANDROID_NDK=/Users/nathaniel/Library/Android/sdk/ndk/21.4.7075529
 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
--DCMAKE_LIBRARY_OUTPUT_DIRECTORY=E:\AndroidStudio\AdapterApplication\netguard\build\intermediates\cmake\debug\obj\arm64-v8a
--DCMAKE_RUNTIME_OUTPUT_DIRECTORY=E:\AndroidStudio\AdapterApplication\netguard\build\intermediates\cmake\debug\obj\arm64-v8a
--DCMAKE_MAKE_PROGRAM=F:\AndroidSDK\cmake\3.10.2.4988404\bin\ninja.exe
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/Users/nathaniel/workspace/AndroidStudio/AdapterApplication/netguard/build/intermediates/cmake/debug/obj/arm64-v8a
+-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/Users/nathaniel/workspace/AndroidStudio/AdapterApplication/netguard/build/intermediates/cmake/debug/obj/arm64-v8a
+-DCMAKE_MAKE_PROGRAM=/Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja
 -DCMAKE_SYSTEM_NAME=Android
 -DCMAKE_SYSTEM_VERSION=19
 -DANDROID_PLATFORM=android-22
--BE:\AndroidStudio\AdapterApplication\netguard\.cxx\cmake\debug\arm64-v8a
+-B/Users/nathaniel/workspace/AndroidStudio/AdapterApplication/netguard/.cxx/cmake/debug/arm64-v8a
 -GNinja
 jvmArgs : 
 

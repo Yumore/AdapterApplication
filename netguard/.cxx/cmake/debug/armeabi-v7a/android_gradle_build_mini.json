@@ -1,32 +1,32 @@
 {
   "buildFiles": [
-    "E:\\AndroidStudio\\AdapterApplication\\netguard\\CMakeLists.txt"
+    "/Users/nathaniel/workspace/AndroidStudio/AdapterApplication/netguard/CMakeLists.txt"
   ],
   "cleanCommandsComponents": [
     [
-      "F:\\AndroidSDK\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+      "/Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja",
       "-C",
-      "E:\\AndroidStudio\\AdapterApplication\\netguard\\.cxx\\cmake\\debug\\armeabi-v7a",
+      "/Users/nathaniel/workspace/AndroidStudio/AdapterApplication/netguard/.cxx/cmake/debug/armeabi-v7a",
       "clean"
     ]
   ],
   "buildTargetsCommandComponents": [
-    "F:\\AndroidSDK\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+    "/Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja",
     "-C",
-    "E:\\AndroidStudio\\AdapterApplication\\netguard\\.cxx\\cmake\\debug\\armeabi-v7a",
+    "/Users/nathaniel/workspace/AndroidStudio/AdapterApplication/netguard/.cxx/cmake/debug/armeabi-v7a",
     "{LIST_OF_TARGETS_TO_BUILD}"
   ],
   "libraries": {
     "netguard-Debug-armeabi-v7a": {
       "artifactName": "netguard",
       "buildCommandComponents": [
-        "F:\\AndroidSDK\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+        "/Users/nathaniel/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja",
         "-C",
-        "E:\\AndroidStudio\\AdapterApplication\\netguard\\.cxx\\cmake\\debug\\armeabi-v7a",
+        "/Users/nathaniel/workspace/AndroidStudio/AdapterApplication/netguard/.cxx/cmake/debug/armeabi-v7a",
         "netguard"
       ],
       "abi": "armeabi-v7a",
-      "output": "E:\\AndroidStudio\\AdapterApplication\\netguard\\build\\intermediates\\cmake\\debug\\obj\\armeabi-v7a\\libnetguard.so",
+      "output": "/Users/nathaniel/workspace/AndroidStudio/AdapterApplication/netguard/build/intermediates/cmake/debug/obj/armeabi-v7a/libnetguard.so",
       "runtimeFiles": []
     }
   }

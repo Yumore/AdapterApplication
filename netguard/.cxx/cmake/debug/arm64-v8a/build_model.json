@@ -1,13 +1,17 @@
 {
   "abi": "ARM64_V8A",
-  "abiPlatformVersion": 19,
-  "buildSettings": {
-    "environmentVariables": []
+  "info": {
+    "abi": "ARM64_V8A",
+    "bitness": 64,
+    "deprecated": false,
+    "default": true
   },
+  "originalCxxBuildFolder": "E:\\AndroidStudio\\AdapterApplication\\netguard\\.cxx\\cmake\\debug\\arm64-v8a",
+  "cxxBuildFolder": "E:\\AndroidStudio\\AdapterApplication\\netguard\\.cxx\\cmake\\debug\\arm64-v8a",
+  "abiPlatformVersion": 19,
   "cmake": {
-    "cmakeArtifactsBaseFolder": "E:\\AndroidStudio\\AdapterApplication\\netguard\\.cxx\\cmake\\debug\\arm64-v8a",
-    "cmakeServerLogFile": "E:\\AndroidStudio\\AdapterApplication\\netguard\\.cxx\\cmake\\debug\\arm64-v8a\\cmake_server_log.txt",
     "cmakeWrappingBaseFolder": "E:\\AndroidStudio\\AdapterApplication\\netguard\\.cxx\\cxx\\debug\\arm64-v8a",
+    "cmakeArtifactsBaseFolder": "E:\\AndroidStudio\\AdapterApplication\\netguard\\.cxx\\cmake\\debug\\arm64-v8a",
     "effectiveConfiguration": {
       "name": "traditional-android-studio-cmake-environment",
       "description": "Composite reified CMakeSettings configuration",
@@ -56,6 +60,10 @@
           "value": "E:\\AndroidStudio\\AdapterApplication\\netguard\\build\\intermediates\\cmake\\debug\\obj\\arm64-v8a"
         },
         {
+          "name": "CMAKE_RUNTIME_OUTPUT_DIRECTORY",
+          "value": "E:\\AndroidStudio\\AdapterApplication\\netguard\\build\\intermediates\\cmake\\debug\\obj\\arm64-v8a"
+        },
+        {
           "name": "CMAKE_MAKE_PROGRAM",
           "value": "F:\\AndroidSDK\\cmake\\3.10.2.4988404\\bin\\ninja.exe"
         },
@@ -72,49 +80,76 @@
           "value": "android-22"
         }
       ]
-    }
+    },
+    "cmakeServerLogFile": "E:\\AndroidStudio\\AdapterApplication\\netguard\\.cxx\\cmake\\debug\\arm64-v8a\\cmake_server_log.txt"
   },
-  "cxxBuildFolder": "E:\\AndroidStudio\\AdapterApplication\\netguard\\.cxx\\cmake\\debug\\arm64-v8a",
-  "info": {
-    "abi": "ARM64_V8A",
-    "bitness": 64,
-    "deprecated": false,
-    "default": true
-  },
-  "originalCxxBuildFolder": "E:\\AndroidStudio\\AdapterApplication\\netguard\\.cxx\\cmake\\debug\\arm64-v8a",
   "variant": {
     "buildSystemArgumentList": [
       "-DANDROID_PLATFORM\u003dandroid-22"
     ],
-    "buildTargetSet": [],
-    "implicitBuildTargetSet": [],
     "cFlagsList": [],
-    "cmakeSettingsConfiguration": "android-gradle-plugin-predetermined-name",
     "cppFlagsList": [
       ""
     ],
+    "variantName": "debug",
+    "objFolder": "E:\\AndroidStudio\\AdapterApplication\\netguard\\build\\intermediates\\cmake\\debug\\obj",
+    "soFolder": "E:\\AndroidStudio\\AdapterApplication\\netguard\\build\\intermediates\\cmake\\debug\\lib",
     "isDebuggableEnabled": true,
+    "validAbiList": [
+      "ARMEABI_V7A",
+      "ARM64_V8A",
+      "X86",
+      "X86_64"
+    ],
+    "buildTargetSet": [],
+    "implicitBuildTargetSet": [],
+    "cmakeSettingsConfiguration": "android-gradle-plugin-predetermined-name",
     "module": {
-      "buildSystem": "CMAKE",
-      "cmake": {
-        "cmakeExe": "F:\\AndroidSDK\\cmake\\3.10.2.4988404\\bin\\cmake.exe",
-        "minimumCmakeVersion": "3.10.2",
-        "ninjaExe": "F:\\AndroidSDK\\cmake\\3.10.2.4988404\\bin\\ninja.exe"
-      },
-      "cmakeToolchainFile": "F:\\AndroidSDK\\ndk-bundle\\build\\cmake\\android.toolchain.cmake",
       "cxxFolder": "E:\\AndroidStudio\\AdapterApplication\\netguard\\.cxx",
-      "gradleModulePathName": ":netguard",
+      "splitsAbiFilterSet": [],
       "intermediatesFolder": "E:\\AndroidStudio\\AdapterApplication\\netguard\\build\\intermediates",
-      "makeFile": "E:\\AndroidStudio\\AdapterApplication\\netguard\\CMakeLists.txt",
-      "moduleBuildFile": "E:\\AndroidStudio\\AdapterApplication\\netguard\\build.gradle",
+      "gradleModulePathName": ":netguard",
       "moduleRootFolder": "E:\\AndroidStudio\\AdapterApplication\\netguard",
+      "moduleBuildFile": "E:\\AndroidStudio\\AdapterApplication\\netguard\\build.gradle",
+      "makeFile": "E:\\AndroidStudio\\AdapterApplication\\netguard\\CMakeLists.txt",
+      "buildSystem": "CMAKE",
+      "ndkFolder": "F:\\AndroidSDK\\ndk-bundle",
+      "ndkVersion": "22.1.7171670",
+      "ndkSupportedAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
       "ndkDefaultAbiList": [
         "ARMEABI_V7A",
         "ARM64_V8A",
         "X86",
         "X86_64"
       ],
-      "ndkFolder": "F:\\AndroidSDK\\ndk-bundle",
+      "ndkDefaultStl": "LIBCXX_STATIC",
+      "ndkMetaPlatforms": {
+        "min": 16,
+        "max": 30,
+        "aliases": {
+          "20": 19,
+          "25": 24,
+          "J": 16,
+          "J-MR1": 17,
+          "J-MR2": 18,
+          "K": 19,
+          "L": 21,
+          "L-MR1": 22,
+          "M": 23,
+          "N": 24,
+          "N-MR1": 24,
+          "O": 26,
+          "O-MR1": 27,
+          "P": 28,
+          "Q": 29,
+          "R": 30
+        }
+      },
       "ndkMetaAbiList": [
         {
           "abi": "ARMEABI_V7A",
@@ -141,47 +176,15 @@
           "default": true
         }
       ],
-      "ndkMetaPlatforms": {
-        "min": 16,
-        "max": 30,
-        "aliases": {
-          "20": 19,
-          "25": 24,
-          "J": 16,
-          "J-MR1": 17,
-          "J-MR2": 18,
-          "K": 19,
-          "L": 21,
-          "L-MR1": 22,
-          "M": 23,
-          "N": 24,
-          "N-MR1": 24,
-          "O": 26,
-          "O-MR1": 27,
-          "P": 28,
-          "Q": 29,
-          "R": 30
-        }
+      "originalCmakeToolchainFile": "F:\\AndroidSDK\\ndk-bundle\\build\\cmake\\android.toolchain.cmake",
+      "cmakeToolchainFile": "F:\\AndroidSDK\\ndk-bundle\\build\\cmake\\android.toolchain.cmake",
+      "cmake": {
+        "isValidCmakeAvailable": true,
+        "cmakeExe": "F:\\AndroidSDK\\cmake\\3.10.2.4988404\\bin\\cmake.exe",
+        "minimumCmakeVersion": "3.10.2",
+        "ninjaExe": "F:\\AndroidSDK\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+        "isPreferCmakeFileApiEnabled": true
       },
-      "ndkSupportedAbiList": [
-        "ARMEABI_V7A",
-        "ARM64_V8A",
-        "X86",
-        "X86_64"
-      ],
-      "ndkDefaultStl": "LIBCXX_STATIC",
-      "ndkVersion": "22.1.7171670",
-      "project": {
-        "compilerSettingsCacheFolder": "E:\\AndroidStudio\\AdapterApplication\\.cxx",
-        "cxxFolder": "E:\\AndroidStudio\\AdapterApplication\\.cxx",
-        "isBuildOnlyTargetAbiEnabled": true,
-        "isCmakeBuildCohabitationEnabled": false,
-        "isNativeCompilerSettingsCacheEnabled": false,
-        "rootBuildGradleFolder": "E:\\AndroidStudio\\AdapterApplication",
-        "sdkFolder": "F:\\AndroidSDK",
-        "isPrefabEnabled": false
-      },
-      "splitsAbiFilterSet": [],
       "stlSharedObjectMap": {
         "LIBCXX_SHARED": {
           "ARMEABI_V7A": "F:\\AndroidSDK\\ndk-bundle\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\arm-linux-androideabi\\libc++_shared.so",
@@ -192,18 +195,24 @@
         "LIBCXX_STATIC": {},
         "NONE": {},
         "SYSTEM": {}
-      }
+      },
+      "project": {
+        "rootBuildGradleFolder": "E:\\AndroidStudio\\AdapterApplication",
+        "cxxFolder": "E:\\AndroidStudio\\AdapterApplication\\.cxx",
+        "compilerSettingsCacheFolder": "E:\\AndroidStudio\\AdapterApplication\\.cxx",
+        "sdkFolder": "F:\\AndroidSDK",
+        "isNativeCompilerSettingsCacheEnabled": false,
+        "isBuildOnlyTargetAbiEnabled": true,
+        "isCmakeBuildCohabitationEnabled": false,
+        "isPrefabEnabled": false,
+        "isV2NativeModelEnabled": true
+      },
+      "nativeBuildOutputLevel": "QUIET"
     },
-    "objFolder": "E:\\AndroidStudio\\AdapterApplication\\netguard\\build\\intermediates\\cmake\\debug\\obj",
-    "variantName": "debug",
-    "validAbiList": [
-      "ARMEABI_V7A",
-      "ARM64_V8A",
-      "X86",
-      "X86_64"
-    ],
-    "prefabDirectory": "E:\\AndroidStudio\\AdapterApplication\\netguard\\.cxx\\cmake\\debug\\prefab",
-    "prefabPackageDirectoryList": []
+    "prefabDirectory": "E:\\AndroidStudio\\AdapterApplication\\netguard\\.cxx\\cmake\\debug\\prefab"
+  },
+  "buildSettings": {
+    "environmentVariables": []
   },
   "prefabFolder": "E:\\AndroidStudio\\AdapterApplication\\netguard\\.cxx\\cmake\\debug\\prefab\\arm64-v8a"
 }

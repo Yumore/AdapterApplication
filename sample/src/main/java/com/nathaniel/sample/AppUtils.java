@@ -131,7 +131,6 @@ public class AppUtils {
     }
 
     public static List<PackageEntity> getPackageEntities(Context context) {
-        LoggerUtils.logger(TAG, TrafficStats.UNSUPPORTED == -1 ? "TrafficStats UNSUPPORTED" : "TrafficStats UNSUPPORTED");
         List<String[]> stringsList = getNetworkUsageAllUid();
         List<PackageEntity> packageEntities = new ArrayList<>();
         @SuppressLint("QueryPermissionsNeeded")

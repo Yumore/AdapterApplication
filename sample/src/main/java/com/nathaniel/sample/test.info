@@ -114,3 +114,139 @@ TrafficStats.getTotalTxBytes();//手机全部网络接口 包括wifi，3g、2g�
 TrafficStats.getTotalRxBytes();//手机全部网络接口 包括wifi，3g、2g下载的总流量
 
 
+/**
+ * Created by ybf
+ */
+ public List inivData() {
+        INetworkStatsService mStatsService = null;
+        INetworkStatsSession mStatsSession = null;
+        NetworkTemplate mTemplate = null;
+        NetworkStats sta = null;
+        List<AppInfoBean>  lists = new ArrayList<>();
+        try {
+            long start = getStarttime();
+            long end =System.currentTimeMillis();
+            Log.e(TAG, "[start]=" + start + "[end]=" + end);
+            mStatsService = INetworkStatsService.Stub.asInterface(ServiceManager.getService("netstats"));
+            Log.e(TAG, "[mStatsService]="+mStatsService);
+            mStatsSession = mStatsService.openSession();
+            Log.e(TAG, "[mStatsSession]="+mStatsSession);
+            mTemplate = buildTemplateMobileAll(getActiveSubscriberId(mContext));
+            Log.e(TAG, "[getActiveSubscriberId(mContext)]="+getActiveSubscriberId(mContext));
+            Log.e(TAG, "[mTemplate]="+mTemplate);
+            sta = mStatsSession.getSummaryForAllUid(mTemplate, start, end, true);
+            NetworkStats.Entry entry = null;
+            int size = sta != null ? sta.size() : 0;
+            Log.e(TAG, "[service-size-]" + size);
+            for (int i = 0; i < size; i++) {
+                entry = sta.getValues(i, entry);
+                final int uid = entry.uid;
+                long totalapp = entry.rxBytes + entry.txBytes;
+                String sumtotal = Formatter.formatFileSize(mContext, totalapp);
+                String name = null;
+                switch (uid) {
+                    case android.os.Process.SYSTEM_UID:
+                        name = res.getString(R.string.process_kernel_label);
+                        break;
+                    case -4:
+                        name = res.getString(R.string.data_usage_uninstalled_apps);
+                        break;
+                    case -5:
+                        name = res.getString(R.string.tether_settings_title_all);
+                        break;
+                    default:
+                       if(uid< 9999){
+                            name = "null";
+                        }else {
+                            try {
+                                name = getProgramNameByPackageName(mContext, uid);
+                            } catch (Exception e) {
+                                Log.e(TAG, "package name is null");
+                            }
+                        }
+                        break;
+                }
+                AppInfoBean appInfo = new AppInfoBean();
+                appInfo.setName(name);
+                appInfo.setTotal(sumtotal);
+                appInfo.setUid(uid);
+                lists.add(appInfo);
+                Log.e(TAG, "[uid]=" + uid + "[name]=" + name + "[total]=" + sumtotal);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+            e.toString();
+        }
+        return  lists;
+    }
+
+
+    /**
+     * Created by ybf
+     */
+     public List inivDataHistory(long start ,long end) {
+            INetworkStatsService mStatsService = null;
+            INetworkStatsSession mStatsSession = null;
+            NetworkTemplate mTemplate = null;
+            NetworkStats sta = null;
+            List<AppInfoBean>  lists = new ArrayList<>();
+            try {
+                if(start == 0){
+                    start = getStarttime();
+                }
+               if(end == 0){
+                   end =System.currentTimeMillis();
+               }
+                Log.e(TAG, "[start]=" + start + "[end]=" + end);
+                mStatsService = INetworkStatsService.Stub.asInterface(ServiceManager.getService("netstats"));
+                Log.e(TAG, "[mStatsService]="+mStatsService);
+                mStatsSession = mStatsService.openSession();
+                Log.e(TAG, "[mStatsSession]="+mStatsSession);
+                mTemplate = buildTemplateMobileAll(getActiveSubscriberId(mContext));
+                Log.e(TAG, "[getActiveSubscriberId(mContext)]="+getActiveSubscriberId(mContext));
+                Log.e(TAG, "[mTemplate]="+mTemplate);
+                sta = mStatsSession.getSummaryForAllUid(mTemplate, start, end, true);
+                NetworkStats.Entry entry = null;
+                int size = sta != null ? sta.size() : 0;
+                Log.e(TAG, "[service-size-]" + size);
+                for (int i = 0; i < size; i++) {
+                    entry = sta.getValues(i, entry);
+                    final int uid = entry.uid;
+                    long totalapp = entry.rxBytes + entry.txBytes;
+                    String sumtotal = Formatter.formatFileSize(mContext, totalapp);
+                    String name = null;
+                    switch (uid) {
+                        case android.os.Process.SYSTEM_UID:
+                            name = res.getString(R.string.process_kernel_label);
+                            break;
+                        case -4:
+                            name = res.getString(R.string.data_usage_uninstalled_apps);
+                            break;
+                        case -5:
+                            name = res.getString(R.string.tether_settings_title_all);
+                            break;
+                        default:
+                            if(uid< 9999){
+                                name = "null";
+                            }else {
+                                try {
+                                    name = getProgramNameByPackageName(mContext, uid);
+                                } catch (Exception e) {
+                                    Log.e(TAG, "package name is null");
+                                }
+                            }
+                            break;
+                    }
+                    AppInfoBean appInfo = new AppInfoBean();
+                    appInfo.setName(name);
+                    appInfo.setTotal(sumtotal);
+                    appInfo.setUid(uid);
+                    lists.add(appInfo);
+                    Log.e(TAG, "[uid]=" + uid + "[name]=" + name + "[total]=" + sumtotal);
+                }
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
+            return  lists;
+        }
